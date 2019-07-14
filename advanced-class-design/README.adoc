@@ -1,9 +1,42 @@
+:sourcedir: src/main/java/io/github/fatihbozik/ch1
+
 [[chapter-1]]
 == Advanced Class Design
 
 === Access Modifiers
 
-. Access Modifiers
+Imagine the following class exists.
+
+[source,java]
+.BigCat.java
+----
+include::{sourcedir}/accessmodifiers/cat/BigCat.java[indent=0]
+----
+
+{empty} +
+
+Now, suppose `Lynx` class has main method that instantiates a BigCat and tries to print out all four variables. Which variables will be allowed?
+
+[source,java]
+.Lynx.java
+----
+include::{sourcedir}/accessmodifiers/cat/species/Lynx.java[indent=0]
+----
+
+- `cat.name` *compiles* because any code can access public members.
+- `cat.hasFur` is tricky one.
+protected allows subclasses and code in the same package to access members.
+*Does not compile* because code is being accessed via the variable rather than by inheritance, it doesnt benefit from protected.
+If the code in main was `Lynx cat = new Lynx();` would be compile.
+- `cat.hasPawns` *does not compile* because only code in the same package can access code with default access.
+- `cat.id` *does not compile* because only code in the same class can access private members.
+
+{empty} +
+
+To review the rules for access modifiers at a glance, see Table 1.
+
+[width="70%",cols="3, 1, 1, 1, 1",options=header]
+.Access Modifiers
 |===
 | Can access | Is that member is `private`? | If that member has default (package private) access? | If that member is `protected`? | If that member is `public`?
 
@@ -31,12 +64,6 @@
 | no
 | yes
 |===
-
-[source,bash]
-.filename.sh
-----
-
-----
 
 
 

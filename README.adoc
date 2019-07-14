@@ -1,7 +1,7 @@
 :encoding: utf-8
 :lang: en
 :author: Fatih Bozik
-:doctitle: OCP8 Workbook
+:doctitle: OCP8 Study Guide
 :doctype: book
 
 :toc: left
@@ -10,6 +10,11 @@
 :sectnums:
 
 :chapter-label:
+:figure-caption: Figure
+:example-caption: Example
+:table-caption: Table
+:appendix-caption: Appendix
+:listing-caption: Code
 :revnumber: 0.1
 :revremark: {docdate}
 
@@ -17,6 +22,10 @@
 :source-highlighter: coderay
 
 = {doctitle}
+
+---
+
+{empty} +
 
 include::advanced-class-design/README.adoc[Advanced Class Design]
 
