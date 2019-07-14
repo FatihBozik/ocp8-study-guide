@@ -1,2 +1,0 @@
-[[chapter-5]]
-== Dates, Strings and Localization
