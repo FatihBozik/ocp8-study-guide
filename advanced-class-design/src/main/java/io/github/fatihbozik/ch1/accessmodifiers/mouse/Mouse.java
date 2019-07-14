@@ -7,7 +7,7 @@ public class Mouse {
 	BigCat cat = new BigCat();
 	System.out.println(cat.name);
 	// System.out.println(cat.hasFur);   // DOES NOT COMPILE
-	// System.out.println(cat.hasPaws); // DOES NOT COMPILE
+	// System.out.println(cat.hasPaws);  // DOES NOT COMPILE
 	// System.out.println(cat.id); 	     // DOES NOT COMPILE
     }
 }
