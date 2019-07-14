@@ -63,3 +63,42 @@ To review the rules for access modifiers at a glance, see below table.
 | Member in another class in the same package                               | no                         | yes                                                  | yes                          | yes                       |
 | Member in another class in the same package                               | no                         | no                                                   | yes                          | yes                       |
 | Method/field in a class (that is not a superclass) in a different package | no                         | no                                                   | no                           | yes                       |
+
+## Overloading and Overriding 
+
+Overloading and overriding happen only when the method name is the same. _Overriding_ occurs when the method signature is the same. _The method signature_ is the method name and the parameter list. For _overloading_, the method parameters must vary by type and/or number.
+
+When multiple overloaded methods are present, Java looks for the closest match first. It tries to find the following: 
+* Exact match by type
+* Matching a superclass type
+* Converting to a larger primitive type
+* Converting to an autoboxed type
+* Varargs
+
+For overriding, the overridden method has a few rules:
+* The access modifier must be same or more accessible.
+* The return type must be the same or a more restrictive type, also known as _covariant return types_.
+* If any checked exception thrown, only the same exceptions or subclasses of those exceptions are allowed to be thrown.
+* The method must not be `static`. (If they are, the method is hidden not overridden.)
+
+```java
+public class Bobcat {
+  public void findDen() { }
+}
+```
+
+```java
+public class BobcatKitten extends Bobcat {
+  // overriding because it has the same method signatures  
+  public void findDen() { } 
+  
+  // overloading because it has the same method name but different parameter list
+  public void findDen(boolean b) { }
+  
+  // not an override or overload because it has different method name
+  public int findden() throws Exception { return 0; }
+}
+```
+
+
+
