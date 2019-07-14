@@ -1,6 +1,11 @@
 # OCP Java 8 Study Guide
 
-This repo contains notes and code samples for the Java certification exam.
+<div>
+  <img style="vertical-align:middle" src="https://images.youracclaim.com/images/add1b0f5-493a-4082-ae41-184ba20c8832/5274_badge_600x600_Certified-Professional-Java--SE-8-Programmer.png" width="60" height="60">
+  <span style=""> This repo contains notes and code samples for the Java certification exam.</span>
+</div>
+
+
 
 ## Contents
 
