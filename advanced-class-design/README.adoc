@@ -1,0 +1,42 @@
+[[chapter-1]]
+== Advanced Class Design
+
+=== Access Modifiers
+
+. Access Modifiers
+|===
+| Can access | Is that member is `private`? | If that member has default (package private) access? | If that member is `protected`? | If that member is `public`?
+
+| Member in the same class
+| yes
+| yes
+| yes
+| yes
+
+| Member in another class in the same package
+| no
+| yes
+| yes
+| yes
+
+| Member in another class in the same package
+| no
+| no
+| yes
+| yes
+
+| Method/field in a class (that is not a superclass) in a different package
+| no
+| no
+| no
+| yes
+|===
+
+[source,bash]
+.filename.sh
+----
+
+----
+
+
+
