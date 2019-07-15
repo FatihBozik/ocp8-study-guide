@@ -127,6 +127,37 @@ class Lion extends Cat {
 
 ## Imports
 
+```java
+public class ListHelper {
+    public List<String> copyAndSortList(List<String> original) {
+        List<String> list = new ArrayList<String>(original);
+        sort(list);
+        return list;
+    }
+}
+```
+
+How many different ways can you think of to write imports that will make this code compile.
+
+<br/>
+
+```java
+import static java.util.Collections.sort;
+// or using wildcard -> import static java.util.Collections.*;
+
+import java.util.List;
+import java.util.ArrayList;   
+// or using wildcard -> import java.util.*;
+
+public class ListHelper {
+    public List<String> copyAndSortList(List<String> original) {
+        List<String> list = new ArrayList<String>(original);
+        sort(list);
+        return list;
+    }
+}
+```
+
 ## Using _instanceof_
 
 ## Understanding Virtual Method Invocation
