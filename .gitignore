@@ -7,3 +7,6 @@ out
 
 # Ignore Gradle build output directory
 build
+
+# Java
+*.class

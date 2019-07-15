@@ -6,7 +6,7 @@ class Hippo extends HeavyAnimal { }
 class Elephant extends HeavyAnimal { }
 class MotherHippo extends Hippo implements Mother { }
 
-class Test {
+class InstanceofTest {
     public static void main(String[] args){
 	HeavyAnimal hippo = new Hippo();
 	boolean b1 = hippo instanceof Object;           // true

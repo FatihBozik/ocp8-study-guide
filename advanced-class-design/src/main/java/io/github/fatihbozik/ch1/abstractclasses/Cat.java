@@ -5,3 +5,8 @@ abstract class Cat {
     // 2. leave it blank         // independently compiles
     // 3. void clean() {}        // independently compiles
 }
+
+class Lion extends Cat {
+    void clean() {
+    }
+}

@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.overloadingandoverriding;
+package io.github.fatihbozik.ch1.oversomething;
 
 public class BobcatKitten extends Bobcat {
     // overriding because it has the same method signatures
