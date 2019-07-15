@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.example3;
+package io.github.fatihbozik.ch1.abstractclasses;
 
 abstract class Cat {
     // 1. abstract void clean(); // independently compiles

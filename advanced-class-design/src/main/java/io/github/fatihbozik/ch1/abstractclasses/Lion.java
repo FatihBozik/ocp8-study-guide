@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.example3;
+package io.github.fatihbozik.ch1.abstractclasses;
 
 class Lion extends Cat {
     void clean() {

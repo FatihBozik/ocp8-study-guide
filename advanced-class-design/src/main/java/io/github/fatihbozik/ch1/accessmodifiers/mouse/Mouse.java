@@ -1,6 +1,6 @@
-package io.github.fatihbozik.ch1.example1.mouse;
+package io.github.fatihbozik.ch1.accessmodifiers.mouse;
 
-import io.github.fatihbozik.ch1.example1.cat.BigCat;
+import io.github.fatihbozik.ch1.accessmodifiers.cat.BigCat;
 
 public class Mouse {
     public static void main(String[] args) {

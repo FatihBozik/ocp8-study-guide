@@ -2,7 +2,7 @@
 
 ## Access Modifiers
 
-Imagine the following classes exists.
+Imagine the following classes (BigCat and Lynx) exists.
 
 ```java
 package cat;
@@ -26,6 +26,8 @@ public class BigCat {
 ```java
 package cat.species;
 
+import cat.BigCat;
+
 public class Lynx extends BigCat { }
 ```
 
@@ -40,9 +42,9 @@ public class Lynx extends BigCat {
     public static void main(String[] args) {
 	BigCat cat = new BigCat();
 	System.out.println(cat.name);
-	// System.out.println(cat.hasFur);   // DOES NOT COMPILE
-	// System.out.println(cat.hasPawns); // DOES NOT COMPILE
-	// System.out.println(cat.id);       // DOES NOT COMPILE
+	System.out.println(cat.hasFur);   // DOES NOT COMPILE
+	System.out.println(cat.hasPawns); // DOES NOT COMPILE
+	System.out.println(cat.id);       // DOES NOT COMPILE
     }
 }
 ```
@@ -159,6 +161,56 @@ public class ListHelper {
 ```
 
 ## Using _instanceof_
+
+* In `a instanceof B`, the expression returns true if the reference to which a points is an instance of class B, a subclass of B (directly or indirectly), or a class that implements the B interface (directly or indirectly).
+
+* All Java classes inherit from `Object`, which means that x instanceof Object is usually true except for one case where it is `false`. 
+
+```java
+class HeavyAnimal { }
+class Hippo extends HeavyAnimal { }
+class Elephant extends HeavyAnimal { }
+
+class Test {
+    public static void main(String[] args){
+      HeavyAnimal hippo = new Hippo();
+      boolean b1 = hippo instanceof Object;           // true
+      boolean b2 = hippo instanceof HeavyAnimal;      // true
+      boolean b3 = hippo instanceof Hippo;            // true
+      boolean b4 = hippo instanceof Elephant;         // false
+      
+      Hippo nullHippo = null;
+      boolean b5 = nullHippo instanceof Object;       // false
+
+      Hippo anotherHippo = new Hippo();
+      boolean b6 = anotherHippo instanceof Elephant;  // DOES NOT COMPILE
+      boolean b7 = 15 instanceof Elephant;            // DOES NOT COMPILE
+    }
+}
+```
+
+* The compiler knows that there is no possible way for a `Hippo` variable reference to be an Elephant, since Hippo doesn't extend Elephant directly or indirectly.
+
+* The compilation checks only applies when `instanceof` is called on a class. When checking whether an object is an instanceof an interface. Java waits until runtime to do the check. The reason is that a subclass could implement that interface and the compiler wouldn't know it.
+  The compiler knows an interface could be added, so the instanceof statement could be true for some subclasses, whereas there is no possible way to turn a Hippo into an Elephant.
+
+```java
+interface Mother { }
+class HeavyAnimal { }
+class Hippo extends HeavyAnimal { }
+class Test {
+    public static void main(String[] args){
+        HeavyAnimal hippo = new Hippo();
+        boolean b8 = hippo instanceof Mother;
+    }
+}
+```
+
+It so happens that `Hippo` does not implement Mother. The compiler allows the statement because there could later be a class such a this:
+
+```java
+class MotherHippo extends Hippo implements Mother { }
+```
 
 ## Understanding Virtual Method Invocation
 
