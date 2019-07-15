@@ -120,6 +120,11 @@ class Lion extends Cat {
 
 ## _Static_ and _Final_
 
+* `final` prevents a variable from changing or a method from being overridden. 
+* `static` makes a variable shared at the class level and uses the class name to refer to a method.
+* `static` and `final` are allowed to be added on the class level too. `static` keyword used on nested classes. Using `final` on a class means that it cannot be subclassed.
+* Methods and classes cannot be both `abstract` and `final`.
+
 ## Imports
 
 ## Using _instanceof_
