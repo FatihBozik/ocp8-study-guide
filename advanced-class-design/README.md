@@ -600,7 +600,7 @@ public enum OnlyOne {
 }
 ```
 
-It is possible for a Java enum class to have abstract methods too. If an enum class has an abstract method, then each instance of the enum class must implement it. Here is a Java enum abstract method example:
+It is possible for a Java enum to have abstract methods too. If an enum has an abstract method, then each instance of the enum must implement it. Here is a Java enum abstract method example:
 
 ```java
 enum Season {
@@ -721,7 +721,7 @@ enum Season {                              // abstract class Season extends Enum
 }                                          //             System.out.println("9am-7pm");
                                            //          }
                                            //       };
-                                           //       FALL = Season() {
+                                           //       FALL = Season("FALL", 3) {
                                            //          @Override
                                            //          public void printHours() {
                                            //             System.out.println("9am-5pm");
@@ -744,4 +744,267 @@ enum Season {                              // abstract class Season extends Enum
 
 ## Creating Nested Classes 
 
+A *nested class* is a class that is defined within another class. A nested class that is not `static` is called an *inner class*. There are four types of nested classes.
 
+* A member inner class is a class defined at the same level as instance variables. It is not static. Often, this is just referred to as an inner class without explicitly saying the type.
+* A local inner class is defined within a method.
+* An anonymous inner class is a special case of a local inner class that does not have a name.
+* A static nested class is a `static` class that is defined at the same level as `static` variables.
+
+There are a few benefits of using inner classes. They can encapsulate helper classes by restricting them to containing class. They can make it easy to create a class that will be used in only one place. They can make the code easier to read. They can also make yhe code harder to read when used improperly.
+
+### Member Inner Classes
+
+A *member inner class* is defined at the member level of a class (the same level as the methods, instance variables, and the constructors). Member inner classes have the following properties:
+* Can be declared `public`, `private`, or `protected` or default access.
+* Can extend any class and implement interfaces.
+* Can be `abstract` or `final`.
+* Cannot declare static fields or methods except for stativc final fields.
+* Can access members of the outer class including `private` members.
+
+```java
+public class Outer {
+    private String greeting = "Hi";
+
+    protected class Inner {
+        public int repeat = 3;
+        public void go() {
+            for(int i = 0; i < repeat; i++) {
+		System.out.println(greeting);
+	    }
+	}
+    }
+
+    public void callInner() {
+        Inner inner = new Inner();
+        inner.go();
+    }
+
+    public static void main(String[] args) {
+	Outer outer = new Outer();
+	outer.callInner();
+    }
+}
+```
+
+There is another way to instantiate `Inner` that looks odd at first. This syntax isn't used often enough to get used to it.
+```java
+public static void main(String[] args){
+  Outer outer = new Outer();
+  Inner inner = outer.new Inner(); // create the inner class
+  inner.go;
+}
+```
+
+Inner classes can have the same variable names as outer classes. There is a special way of calling `this` to say which class you want to access. You also aren't limited to just one inner class. Please never do this in code you write.
+
+```java
+public class A {
+    private int x = 10;
+
+    class B {
+	private int x = 20;
+
+	class C {
+	    private int x = 30;
+
+	    public void allTheX() {
+		System.out.println(x);            // 30
+		System.out.println(this.x);       // 30
+		System.out.println(C.this.x);     // 30
+		System.out.println(B.C.this.x);   // 30
+		System.out.println(A.B.C.this.x); // 30
+
+		System.out.println(B.this.x);     // 20
+		System.out.println(A.B.this.x);   // 20
+		
+		System.out.println(A.this.x);     // 10
+	    }
+	}
+    }
+
+    public static void main(String[] args) {
+	A a = new A();
+	A.B b = a.new B();
+	A.B.C c = b.new C();
+	c.allTheX();
+	
+	// Create c2 object in one line
+	A.B.C c2 = new A().new B().new C();
+    }
+}
+``` 
+
+#### `.class` Files for Inner Classes
+Compiling the `A.java` class with which we have been working creates three class files. `A.class` you should be expecting. For the inner class B, the compiler creates `A$B.class`. For the inner class C, the compiler creates `A$B$C.class`.
+
+#### Private Interfaces
+
+The interface itself does not have to be `public`, though. Just line any inner class, an inner interface can be `private`. This means that interface can only be referred to within the current outer class.
+
+```java
+public class CaseOfPrivateInterface {
+    private interface Secret {
+        public void shh();
+    }
+    class DontTell implements Secret {
+        public void shh() { }
+    }
+}
+```
+
+### Local Inner Classes
+
+A *local inner class* is a nested class defined within a method. Like local variables, a local inner class declaration does not exist until the method is invoked, and it goes out of scope when method returns. This means that you can create instances only from within method. Those instances can still be returned from the method. This is  just how local variables work. Local inner classes have the following properties:
+
+* They do not have an access specifier.
+* They cannot be declared `static` and cannot declare `static` fields or methods except for static final fields.
+* They have access to all fields and methods of the enclosing class.
+* They do not have access to local variables of a method unless those variables are `final` or effectively final.
+
+```java
+public class Outer {
+    private int length = 5;
+    public void calculate() {
+	final int width = 20;
+	class Inner {
+	    public void multiply() {
+		System.out.println(length + width);
+	    }
+	}
+	Inner inner = new Inner();
+	inner.multiply();
+    }
+    public static void main(String[] args) {
+	Outer outer = new Outer();
+	outer.calculate();
+    }
+}
+```
+
+The compiler is generating a class file from your inner class. A separate class has no way to refer to local variables. If the local variables `final`, Java can handle it by passing it to the constructor of the inner class or by storing it in the class file. If it weren't effectively final, these tricks wouldn't work because the value could change after the copy was made.
+
+**Effectively final:** A variable or parameter whose value is never changed after it is initialized is effectively final.
+
+### Anonymous Inner Classes
+
+An *anonymous inner class* is a local inner class that does not have a name. It is declared and instantiated all in one statement using the `new` keyword. Anonymous inner classes are required to extend an existing class or implement an existing interface. They are useful when you have a short implementation that will not be used anywhere else.
+
+```java
+public class AnonInner {
+    abstract class SaleTodayOnly {
+        abstract int dollarsOff();
+    }
+    public int admission(int basePrice) {
+        SaleTodayOnly sale = new SaleTodayOnly() {
+	    int dollarsOff() {
+		return 3;
+	    }
+	};
+        return basePrice - sale.dollarsOff();
+    }
+}
+``` 
+
+Now we convert this same example to implement an `interface` instead of extending an `abstract` class.
+
+```java
+public class AnonInner {
+    interface SaleTodayOnly {
+	int dollarsOff();
+    }
+    public int admission(int basePrice) {
+	SaleTodayOnly sale = new SaleTodayOnly() {
+	    @Override
+	    public int dollarsOff() {
+		return 0;
+	    }
+	};
+	return basePrice - sale.dollarsOff();
+    }
+}
+```
+
+You can define anonymous inner class right where they are needed, even if that is an argument to another method:
+
+```java
+public class AnonInner {
+    interface SaleTodayOnly {
+	int dollarsOff();
+    }
+    public int pay() {
+	return admission(5, new SaleTodayOnly() {
+	    public int dollarsOff() {
+		return 3;
+	    }
+	});
+    }
+    public int admission(int basePrice, SaleTodayOnly sale) {
+	return basePrice - sale.dollarsOff();
+    }
+}
+```
+
+### Static Nested Classes
+
+A *static nested class* is a static class defined at the member level. It can be instantiated without an object of the enclosing class, so it can't access the instance variables without an explicit object of enclosing class. For example, `new OuterClass().var` allows access to the instance variable `var`.
+
+It is like regular class except for the following.
+* The nesting creates a namespace because the enclosing class name must be used to refer to it.
+* It can be made `private` or use one of the other access modifiers to encapsulate it.
+* The enclosing class can refer to the fields and methods of the `static` nested class.
+
+```java
+public class Enclosing {
+    static class Nested {
+	private int price = 6;
+    }
+    public static void main(String[] args) {
+	Nested nested = new Nested();
+	System.out.println(nested.price);
+    }
+}
+```
+
+---
+
+#### Importing a `static` Nested Class
+
+Importing a `static` nested class is interesting. You can import it using a regular import:
+
+```java
+package bird;
+public class Toucan {
+    public static class Beak { }
+}
+```
+
+```java
+package watcher;
+import bird.Toucan.Beak; // regular import ok
+public class BirdWatcher {
+    Beak beak;
+}
+```
+
+And since it is `static`, alternatively you can use a `static` import:
+
+```java
+import static bird.toucan.Beak;
+```
+
+Either one will compile. Java treats the `static` nested class as if it were a namespace.
+
+---
+
+To review the four type of nested classes, make sure that you know the information in below table.
+
+|                                                   | Member inner class                                  | Local inner class                     | Anonymous inner class                                  | `static` nested class                                           |
+| ------------------------------------------------- | --------------------------------------------------- | ------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------- |
+| Access modifiers allowed                          | `public`, `protected`, `private`, or default access | None. Already local to method.        | None. Already local to statement.                      | `public`, `protected`, `private`, or default access             |
+| Can extend any class and any number of interfaces | Yes                                                 | Yes                                   | No - must have exactly one superclass or one interface | Yes                                                             |
+| Can be `abstract`                                 | Yes                                                 | Yes                                   | N/A - because no class definition                      | Yes                                                             |
+| Can be `final`                                    | Yes                                                 | Yes                                   | N/A - because no class definition                      | Yes                                                             |
+| Can access instance members of enclosing class    | Yes                                                 | Yes                                   | Yes                                                    | No (not directly; requires an interface of the enclosing class) |
+| Can access local variables of enclosing class     | No                                                  | Yes - if `final` or effectively final | Yes - if `final` or effectively final                  | No                                                              |
+| Can declare `static` methods                      | No                                                  | No                                    | No                                                     | Yes                                                             |
