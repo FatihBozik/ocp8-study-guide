@@ -1,6 +1,6 @@
-package io.github.fatihbozik.ch1.accessmodifiers.cat.species;
+package io.github.fatihbozik.ch1.accessmodifiers.example1.cat.species;
 
-import io.github.fatihbozik.ch1.accessmodifiers.cat.BigCat;
+import io.github.fatihbozik.ch1.accessmodifiers.example1.cat.BigCat;
 
 public class Lynx extends BigCat {
     public static void main(String[] args) {

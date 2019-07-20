@@ -214,6 +214,37 @@ class MotherHippo extends Hippo implements Mother { }
 
 ## Understanding Virtual Method Invocation
 
+A **virtual method** is a method in which the specific implementation is not determined until runtime. In fact, all non-final, non-static, and non-private Java methods are considered virtual methods, since any of them can be overridden at runtime.
+
+```java
+abstract class Animal {
+    public void careFor() {
+	play();
+    }
+
+    public void play() {
+	System.out.println("pet animal");
+    }
+}
+
+class Lion extends Animal {
+    public void play() {
+	System.out.println("toss in meat");
+    }
+}
+
+public class PlayWithAnimal {
+    public static void main(String... args) {
+	Animal animal = new Lion();
+	animal.careFor(); // toss in meat
+    }
+}
+```
+
+Only `Animal` superclass has a `careFor` method, it executes. That method calls play.
+Java looks for overridden methods, and it sees that Lion implements `play`. Even though the call
+is from the Animal class, Java still looks at subclasses.
+
 ## Annotating Overridden Methods
 
 ## Coding _equals_, _hashCode_ and _toString_

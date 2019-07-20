@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.accessmodifiers.cat;
+package io.github.fatihbozik.ch1.accessmodifiers.example1.cat;
 
 public class BigCat {
     public String name = "cat";
