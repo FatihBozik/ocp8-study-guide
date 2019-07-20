@@ -247,6 +247,22 @@ is from the Animal class, Java still looks at subclasses.
 
 ## Annotating Overridden Methods
 
+An *annotation* is extra information about the program, and it is type of *metadata*. It begins with an `@` symbol and can be used by the compiler or even at runtime.
+
+```java
+class BobcatMother {
+    public void findDen() { }
+}
+
+class Bobcat extends BobcatMother {
+    @Override
+    public void findDen() { }
+    
+    @Override
+    public void findDen(boolean b) { } // DOES NOT COMPILE
+}
+```
+
 ## Coding _equals_, _hashCode_ and _toString_
 
 ## Working with _Enums_
