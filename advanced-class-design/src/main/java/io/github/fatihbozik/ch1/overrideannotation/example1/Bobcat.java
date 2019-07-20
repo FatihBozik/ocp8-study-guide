@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.overrideannotation;
+package io.github.fatihbozik.ch1.overrideannotation.example1;
 
 /**
  * @author Fatih Bozik

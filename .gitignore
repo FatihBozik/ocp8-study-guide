@@ -10,3 +10,5 @@ build
 
 # Java
 *.class
+
+.DS_Store

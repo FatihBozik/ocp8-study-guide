@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.enums;
+package io.github.fatihbozik.ch1.enums.example1;
 
 enum Season {
     WINTER, SPRING, SUMMER, FALL

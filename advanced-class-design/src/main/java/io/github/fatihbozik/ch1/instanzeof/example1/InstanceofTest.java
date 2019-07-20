@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch1.instanzeof;
+package io.github.fatihbozik.ch1.instanzeof.example1;
 
 interface Mother { }
 class HeavyAnimal { }

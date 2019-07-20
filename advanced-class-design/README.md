@@ -265,7 +265,228 @@ class Bobcat extends BobcatMother {
 
 ## Coding _equals_, _hashCode_ and _toString_
 
+All classes in Java inherit from `java.lang.Object`, either directly or indirectly, which means that all classes inherit any methods defined in `Object`.
+
+### *toString*
+
+Java automatically calls the `toString` method if you try to print out an object. Some classes supply a humanreadable implementation of `toString` and others do not.
+
+```java
+public static void main(String[] args) {
+    System.out.println(new ArrayList()); // []
+    System.out.println(new String[0]);   // [Ljava.lang.String;@61bbe9ba
+}
+```
+
+Providing nice human-readable output is going to make things easier for developers working with your code. They can simply print out your object and understand what it represents.
+
+```java
+public class Hippo {
+    private String name;
+    private double weight;
+
+    public Hippo(String name, double weight) {
+	this.name = name;
+	this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+	return "name: " + name + ", weight: " + weight;
+    }
+
+    public static void main(String[] args) {
+	Hippo hippo = new Hippo("Harry", 768);
+	System.out.println(hippo); // name: Harry, weight: 768.0
+    }
+}
+```
+
+#### The Easy Way to Write `toString` Methods
+
+[Apache Commons Lang](https://commons.apache.org/proper/commons-lang/) provides some methods that you might wish were in core Java.
+
+```java
+package ToString;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+class Hippo {
+    private String name;
+    private double weight;
+       
+    // Constructor
+    
+    @Override
+    public String toString() {
+      // Hippo[name=Harry,weight=768.0]
+      return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE); 
+      
+      // ToString.Hippo@12a89a7[name=Harry,weight=768.0]
+      // return ToStringBuilder.reflectionToString(this); 
+    }
+}
+
+class HippoTest {
+    public static void main(String[] args){
+      Hippo hippo = new Hippo("Harry", 768);
+      System.out.println(hippo);
+   } 
+}
+```
+
+You might be wondering what this reflection thing is that is mentioned in the method name. *Reflection* is a technique used in Java to look at information about class at runtime. This lets the `ToStringBuilder` class determine what are all of the instance variables and to construct a String with each.
+
+### *equals*
+
+Checking if two objects are equivalent uses the `equals()` method, or at least it does if the developer implementing the method overrides `equals()`.
+
+```java
+String s1 = new String("lion");
+String s2 = new String("lion");
+System.out.println(s1.equals(s2)); // true
+
+StringBuilder sb1 = new StringBuilder("lion");
+StringBuilder sb2 = new StringBuilder("lion");
+System.out.println(sb1.equals(sb2)); // false
+```
+
+`String` does have an `equals` method. It checks that the values are the same. `StringBuilder` uses the implementation of `equals()` provided by `Object`, which simply check if the two objects being referred to are the same.
+
+```java
+public class Lion {
+    private int id;
+    private int age;
+    private String name;
+
+    public Lion(int id, int age, String name) {
+	this.id = id;
+	this.age = age;
+	this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (!(obj instanceof Lion)) {
+	    return false;
+	}
+	Lion otherLion = (Lion) obj;
+	return (this.id == otherLion.id);
+    }
+}
+```
+
+#### The Contract for `equals()` Methods
+
+Java provides a number of rules in the contact for the `equals()` method.
+
+The `equals()` method implements an equivalence relation on non-null object references.
+* It is *reflexive*: For any non-null reference value x, `x.equals(x)` should return `true`.
+* It is *symmetric*: For any non-null reference values x and y, `x.equals(y)` should return true if and only if `y.equals(x)` returns true. 
+* It is *transitive*: For any non-null reference values x, y and z, if `x.equals(y)` returns `true` and `y.equals(z)` returns true, then `x.equals(z)` should return true.
+* It is *consistent*: For any non-null reference values x and y, multiple invocations of `x.equals(y)` consistently return `true` or consistently return `false`, provided no information used in equals comparisons on the objects is modified.
+* For any non-null reference value x, `x.equals(null)` should return `false`.
+
+#### Easy Way to Write `equals()` Methods
+
+If you want all of the instance variables to be checked, your `equals()` method can be one line with Apache Commons Lang library:
+```java
+public boolean equals(Object obj) {
+  return EqualsBuilder.reflectionEquals(this, obj);
+}
+``` 
+
+This is nice. However, for `equals()`, it is common to look at just one or two instance variables rather than all of them.
+```java
+@Override
+public boolean equals(Object obj) {
+    if (!(obj instanceof Lion)) {
+        return false;
+    }
+    Lion other = (Lion) obj;
+    return new EqualsBuilder()
+        .appendSuper(super.equals(obj))
+        .append(id, other.id)
+        .append(name, other.name)
+        .isEquals();
+}
+```
+
+### *hashCode*
+
+Whenever you override `equals()`, you are also expected to override `hashCode()`. The hash code is used when storing the object as a key in a map. 
+
+A *hash code* is a number that puts instances of a class into a finite number of categories. 
+
+```java
+class Card {
+    private String rank;
+    private String suit;
+
+    public Card(String rank, String suit) {
+	if (rank == null || suit == null) {
+	    throw new IllegalArgumentException();
+	}
+	this.rank = rank;
+	this.suit = suit;
+    }
+
+    public boolean equals(Object obj) {
+	if (!(obj instanceof Card)) {
+	    return false;
+	}
+	Card other = (Card) obj;
+	return rank.equals(other.rank) && suit.equals(other.suit);
+    }
+
+    public int hashCode() {
+	return rank.hashCode();
+    }
+}
+```
+
+In the constructor, you make sure that neither instance variable is `null`. This check allows `equals()` to be simpler because you don't have to worry about `null` there. The `hashCode()` method is quite simple. It asks the `rank` for its hash code and uses that. 
+
+But what do you do if you have primitive and need the hash code? The hash code is just a number. You can just use a primitive number as is or divide to get a smaller `int`. Remember that all of the instance variables don't need to be used in a `hashCode()` method. It is common not to include `boolean` and `char` variables in the hash code.
+
+#### The Contract for `hashCode()` Methods
+
+* Within the same program, the result of `hashCode()` must not change. This means that you shouldn't include variables that change in figuring out the hash code.
+
+* If `equals()` returns `true` when called with two objects, calling `hashCode()` on each of those objects must return the same result. This means `hashCode()` can use a subset of the variables that `equals()` uses.
+
+* If `equals()` returns `false` when called with two objects, calling `hashCode()` on each of those objects does not have return a different values. This means `hashCode()` results do not need to be unique when called on unequal objects.
+
+```java
+public int hashCode() { return id; } // Legal
+public int hashCode() { return 6; } // Legal but isn't particularly efficient
+public long hashcode() { return id; } // DOES NOT COMPILE
+public int hashCode() { return id * 7 + age; } // is not legal because it is used
+                                               // more variables than equals()
+```
+
+#### The Easy Way to Write `hashCode()` Methods
+
+The easiest way to write hash code your own. Just pick the key fields that identify your object (and don't change during the program)
+ and combine them:
+ 
+```java
+public int hashCode() {
+  return keyField + (7 * otherKeyField.hashCode());   
+}
+```
+
+It is common to multiply by a prime number when combining multiple fields int the hash code. This makes the hash code more unique, which helps when distributing objects into buckets.  
+
 ## Working with _Enums_
+
+In programming, it is common to have a type that can only have a finite set of values.
+An *enumerations* is like a fixed set of constants. In Java, an `enum` is a class that represents an enumeration. It is much better than a bunch of constants because it provides type-safe checking. With numeric constants, you can pass an invalid value and not find out until runtime. With `enums`, it is impossible to create an invalid enum type without introducing a compiler error.
+
+Enumerations show up whenever you have a set of items whose types are known at compile time. Common examples are the days of the week, months of the year or the cards in a deck.
+
+To create a enum , use `enum` keyword instead of `class` keyword. Then list all of the valid types for that enum.
 
 ```java
 enum Season {
@@ -273,36 +494,252 @@ enum Season {
 }
 ```
 
+Since `enum` is like a set of constants, use the uppercase letter convention that you used for constants.  
+
+Behind the scenes, an enum is a type of class that mainly contains `static` members. It also includes some helper methods like `name()`or `values()`.
+
 ```java
-final class Season extends Enum<Season> {
-    public static final Season WINTER;
-    public static final Season SPRING;
-    public static final Season SUMMER;
-    public static final Season FALL;
-    private static final Season[] $VALUES;
+Season s = Season.SUMMER;
+System.out.println(Season.SUMMER); // SUMMER
+System.out.println(s == Season.SUMMER); // true
+``` 
 
-    private Season(String name, int ordinal) {
-	super(name, ordinal);
+An enum provides a method to get an array fo all the values. You can use this like any normal array, including in a loop. 
+
+```java
+for(Season season: Season.values()) {
+    System.out.println(season.name() + " " + season.ordinal()); // WINTER 0
+                                                                // SPRING 1
+                                                                // SUMMER 2
+                                                                // FALL 3
+}
+```
+ 
+You can't compare an `int` and `enum` value directly anyway.
+```java
+if(Season.SUMMER == 2) { } // DOES NOT COMPILE
+```
+
+You can also create an `enum` from `String`. The `String` passed in must match exactly.
+```java
+Season s1 = Season.valueOf("SUMMER"); // SUMMER
+Season s2 = Season.valueOf("summer"); // throws IllegalArgumentException
+```
+
+Another thing that you can't do is extend an enum.
+```java
+public enum ExtendedSeason extends Season { } // DOES NOT COMPILE
+```
+
+### Using *Enums* in *Switch* Statements
+
+`Enums` may be used in `switch` statements. 
+
+```java
+Season summer = Season.SUMMER;
+
+switch (summer) {
+    case WINTER:
+       System.out.println("Winter");
+       break;
+    case SUMMER:
+       System.out.println("Summer");
+       break;
+    // case Season.FALL: // DOES NOT COMPILE
+    //	  System.out.println("Fall");
+    // 	  break;
+    // case 2: // DOES NOT COMPILE
+    //    System.out.println("2");
+    //    break;
+    default:
+       System.out.println("Default");
+}
+```
+
+### Adding Constructors, Fields, And Methods
+
+`Enums` can have more in them than just values. It is common to give state to each one.
+
+```java
+enum Season {
+    WINTER("Low"),
+    SPRING("Medium"),
+    SUMMER("High"),
+    FALL("Medium"); // This semicolon required if
+                    // there is anything in the enum
+                    // besides the values.
+
+    private String expectedVisitors;
+    private Season(String expectedVisitors) {
+	this.expectedVisitors = expectedVisitors;
     }
-
-    static {
-	WINTER = new Season("WINTER", 0);
-	SPRING = new Season("SPRING", 1);
-	SUMMER = new Season("SUMMER", 2);
-	FALL = new Season("FALL", 3);
-	$VALUES = new Season[] {
-		WINTER, SPRING, SUMMER, FALL
-	};
+    public void printExpectedVisitors() {
+	System.out.println(expectedVisitors);
     }
-
-    public static Season[] values() {
-	return $VALUES.clone();
-    }
-
-    public static Season valueOf(String name) {
-	return Enum.valueOf(Season.class, name);
+    
+    public static void main(String[] args) {
+    	Season.SUMMER.printExpectedVisitors(); // High
     }
 }
+```
+
+Notice how we don't appear to call the constructor. We just say that we want he `enum` value. The first time that we ask for any of the enum values, Java constructs all of the enum values. After that, Java just returns the already-constructed `enum` values. Given that explanation, you can see why this code calls the constructor only once.
+
+```java
+public enum OnlyOne {
+    ONCE(true);
+
+    private OnlyOne(boolean b) {
+	System.out.println("constructing");
+    }
+
+    public static void main(String[] args) {
+	OnlyOne firstCall = OnlyOne.ONCE;  // prints constructing
+	OnlyOne secondCall = OnlyOne.ONCE; // doesn't print anything
+    }
+}
+```
+
+It is possible for a Java enum class to have abstract methods too. If an enum class has an abstract method, then each instance of the enum class must implement it. Here is a Java enum abstract method example:
+
+```java
+enum Season {
+    WINTER {
+	@Override
+	public void printHours() {
+	    System.out.println("9am-3pm");
+	}
+    },
+    SPRING {
+	@Override
+	public void printHours() {
+	    System.out.println("9am-5pm");
+	}
+    },
+    SUMMER {
+	@Override
+	public void printHours() {
+	    System.out.println("9am-7pm");
+	}
+    },
+    FALL {
+	@Override
+	public void printHours() {
+	    System.out.println("9am-5pm");
+	}
+    };
+
+    public abstract void printHours();
+}
+```
+
+If we don't want each and every `enum` value to have a method, we can create a default implementation and override it only for the specific cases:
+
+```java
+public enum Season {
+    WINTER {
+	@Override
+	public void printHours() {
+	    System.out.println("short hours");
+	}
+    },
+    SUMMER {
+	@Override
+	public void printHours() {
+	    System.out.println("long hours");
+	}
+    },
+    SPRING, FALL;
+    
+    public void printHours() {
+	System.out.println("Default hours");
+    }
+}
+```
+
+### Behind The Scenes Enum
+
+```java
+enum Season {                     // final class Season extends Enum<Season> {
+    WINTER, SPRING, SUMMER, FALL  //     public static final Season WINTER;
+}                                 //     public static final Season SPRING;
+                                  //     public static final Season SUMMER;
+                                  //     public static final Season FALL;
+                                  //     private static final Season[] $VALUES;
+                                  //
+                                  //     private Season(String name, int ordinal) {
+                                  //        super(name, ordinal);
+                                  //     }
+                                  //
+                                  //     static {
+                                  //        WINTER = new Season("WINTER", 0);
+                                  //        SPRING = new Season("SPRING", 1);
+                                  //        SUMMER = new Season("SUMMER", 2);
+                                  //        FALL = new Season("FALL", 3);
+                                  //	       $VALUES = new Season[] {
+                                  //		      WINTER, SPRING, SUMMER, FALL
+                                  //        };
+                                  //     }
+                                  //
+                                  //     public static Season[] values() {
+                                  //        return $VALUES.clone();
+                                  //     }
+                                  //
+                                  //     public static Season valueOf(String name) {
+                                  //        return Enum.valueOf(Season.class, name);
+                                  //     }
+```
+
+```java
+enum Season {                              // abstract class Season extends Enum<Season> {
+    WINTER {                               //    public static final Season WINTER;
+	@Override                          //    public static final Season SPRING;
+	public void printHours() {         //    public static final Season SUMMER;
+	    System.out.println("9am-3pm"); //    public static final Season FALL;
+	}                                  //    private static final Season[] $VALUES;
+    },                                     //
+    SPRING {                               //    private Season(String name, int ordinal) {
+	@Override                          //       super(name, ordinal);
+	public void printHours() {         //    }
+	    System.out.println("9am-5pm"); //
+	}                                  //    static {
+    },                                     //       WINTER = Season("WINTER", 0) {
+    SUMMER {                               //          @Override
+	@Override                          //          public void printHours() {
+	public void printHours() {         //             System.out.println("9am-3pm");
+	    System.out.println("9am-7pm"); //          }
+	}                                  //       };
+    },                                     //       SPRING = Season("SPRING", 1) {
+    FALL {                                 //          @Override
+	@Override                          //          public void printHours() {
+	public void printHours() {         //             System.out.println("9am-5pm");
+	    System.out.println("9am-5pm"); //          }
+	}                                  //       };
+    };                                     //       SUMMER = Season("SUMMER", 2) {
+                                           //          @Override
+    public abstract void printHours();     //          public void printHours() {
+}                                          //             System.out.println("9am-7pm");
+                                           //          }
+                                           //       };
+                                           //       FALL = Season() {
+                                           //          @Override
+                                           //          public void printHours() {
+                                           //             System.out.println("9am-5pm");
+                                           //          }
+                                           //       };
+                                           //       $VALUES = new Season[] {
+                                           //          WINTER, SPRING, SUMMER, FALL
+                                           //       };
+                                           //    }
+                                           //
+                                           //    public static Season[] values() {
+                                           //       return $VALUES.clone();
+                                           //    }
+                                           //
+                                           //    public static Season valueOf(String name) {
+                                           //       return Enum.valueOf(Season.class, name);
+                                           //    }
+                                           // }
 ```
 
 ## Creating Nested Classes 
