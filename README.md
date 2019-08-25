@@ -1,5 +1,7 @@
 # OCP Java 8 Study Guide
 
+![Licence](https://img.shields.io/github/license/FatihBozik/ocp8-study-guide?style=social)
+
 This repo contains notes and code samples for the Java certification exam.
 
 ## Contents
@@ -14,7 +16,3 @@ This repo contains notes and code samples for the Java certification exam.
 8. [IO](io/README.md)
 9. [NIO.2](nio-2/README.md)
 10. [JDBC](jdbc/README.md)
-
-## License
-
-Licensed under [MIT](LICENCE.md).
