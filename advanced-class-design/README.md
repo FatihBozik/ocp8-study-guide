@@ -63,7 +63,7 @@ To review the rules for access modifiers at a glance, see below table.
 | ------------------------------------------------------------------------- | -------------------------- | ---------------------------------------------------- | ---------------------------- | ------------------------- |
 | Member in the same class                                                  | yes                        | yes                                                  | yes                          | yes                       |
 | Member in another class in the same package                               | no                         | yes                                                  | yes                          | yes                       |
-| Member in another class in the same package                               | no                         | no                                                   | yes                          | yes                       |
+| Member in a superclass in a different package                               | no                         | no                                                   | yes                          | yes                       |
 | Method/field in a class (that is not a superclass) in a different package | no                         | no                                                   | no                           | yes                       |
 
 ## Overloading and Overriding 
