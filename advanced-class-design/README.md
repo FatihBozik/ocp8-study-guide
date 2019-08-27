@@ -759,7 +759,7 @@ A *member inner class* is defined at the member level of a class (the same level
 * Can be declared `public`, `private`, or `protected` or default access.
 * Can extend any class and implement interfaces.
 * Can be `abstract` or `final`.
-* Cannot declare static fields or methods except for stativc final fields.
+* Cannot declare static fields or methods except for static final fields.
 * Can access members of the outer class including `private` members.
 
 ```java
@@ -840,7 +840,7 @@ Compiling the `A.java` class with which we have been working creates three class
 
 #### Private Interfaces
 
-The interface itself does not have to be `public`, though. Just line any inner class, an inner interface can be `private`. This means that interface can only be referred to within the current outer class.
+The interface itself does not have to be `public`, though. Just like any inner class, an inner interface can be `private`. This means that interface can only be referred to within the current outer class.
 
 ```java
 public class CaseOfPrivateInterface {
