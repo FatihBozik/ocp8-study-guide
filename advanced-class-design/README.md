@@ -504,7 +504,7 @@ System.out.println(Season.SUMMER); // SUMMER
 System.out.println(s == Season.SUMMER); // true
 ``` 
 
-An enum provides a method to get an array fo all the values. You can use this like any normal array, including in a loop. 
+An enum provides a method to get an array of all the values. You can use this like any normal array, including in a loop. 
 
 ```java
 for(Season season: Season.values()) {
