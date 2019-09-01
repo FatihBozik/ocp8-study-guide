@@ -858,7 +858,7 @@ public class CaseOfPrivateInterface {
 A *local inner class* is a nested class defined within a method. Like local variables, a local inner class declaration does not exist until the method is invoked, and it goes out of scope when method returns. This means that you can create instances only from within method. Those instances can still be returned from the method. This is  just how local variables work. Local inner classes have the following properties:
 
 * They do not have an access specifier.
-* They cannot be declared `static` and cannot declare `static` fields or methods except for static final fields.
+* They cannot be declared `static` and cannot declare `static` fields or methods except for static final fields. https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.1.3
 * They have access to all fields and methods of the enclosing class.
 * They do not have access to local variables of a method unless those variables are `final` or effectively final.
 
@@ -1006,5 +1006,5 @@ To review the four type of nested classes, make sure that you know the informati
 | Can be `abstract`                                 | Yes                                                 | Yes                                   | N/A - because no class definition                      | Yes                                                             |
 | Can be `final`                                    | Yes                                                 | Yes                                   | N/A - because no class definition                      | Yes                                                             |
 | Can access instance members of enclosing class    | Yes                                                 | Yes                                   | Yes                                                    | No (not directly; requires an interface of the enclosing class) |
-| Can access local variables of enclosing class     | No                                                  | Yes - if `final` or effectively final | Yes - if `final` or effectively final                  | No                                                              |
+| Can access local variables of enclosing method    | N/A                                                 | Yes - if `final` or effectively final | Yes - if `final` or effectively final                  | N/A                                                             |
 | Can declare `static` methods                      | No                                                  | No                                    | No                                                     | Yes                                                             |
