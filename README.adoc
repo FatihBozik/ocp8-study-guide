@@ -1,0 +1,26 @@
+= OCP Java 8 Study Guide Exam 1Z0-809
+
+:license-badge: https://img.shields.io/github/license/FatihBozik/ocp8-study-guide
+:license-file: https://github.com/FatihBozik/ocp8-study-guide/blob/master/LICENSE.adoc
+image:{license-badge}[License,link={license-file}]
+
+This repo contains notes and code samples for the Java certification exam.
+
+== Contents
+
+// Raw html was used because of Github leaves extra space
+// when rendering AsciiDoc lists
+++++
+<ol>
+<li><a href="advanced-class-design/README.adoc">Advanced Class Design</a></li>
+<li><a href="design-patterns-and-principles/README.adoc">Design Patterns and Principles</a></li>
+<li><a href="generics-and-collections/README.adoc">Generics and Collections</a></li>
+<li><a href="functional-programming/README.adoc">Functional Programming</a></li>
+<li><a href="dates-strings-and-localization/README.adoc">Dates, Strings, and Localization</a></li>
+<li><a href="exceptions-and-assertions/README.adoc">Exceptions and Assertions</a></li>
+<li><a href="concurrency/README.adoc">Concurrency</a></li>
+<li><a href="io/README.adoc">IO</a></li>
+<li><a href="nio-2/README.adoc">NIO.2</a></li>
+<li><a href="jdbc/README.adoc">JDBC</a></li>
+</ol>
+++++
