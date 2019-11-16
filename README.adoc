@@ -6,6 +6,11 @@ image:{license-badge}[License,link={license-file}]
 
 This repo contains notes and code samples for the Java certification exam.
 
+== Legal Disclaimer
+
+The notes and several code chunks are taken from the book: https://www.amazon.com/OCP-Certified-Professional-Programmer-1Z0-809/dp/1119067901[OCP: Oracle Certified Professional Java SE 8 Programmer II Study Guide: Exam 1Z0-809].
+Sole purpose of using & sharing the notes and code here is to get ready for the Java 8 Oracle Exam.
+
 == Contents
 
 // Raw html was used because of Github leaves extra space
