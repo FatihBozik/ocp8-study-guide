@@ -17,15 +17,15 @@ Sole purpose of using & sharing the notes and code here is to get ready for the 
 // when rendering AsciiDoc lists
 ++++
 <ol>
-<li><a href="advanced-class-design/README.adoc">Advanced Class Design</a></li>
-<li><a href="design-patterns-and-principles/README.adoc">Design Patterns and Principles</a></li>
-<li><a href="generics-and-collections/README.adoc">Generics and Collections</a></li>
-<li><a href="functional-programming/README.adoc">Functional Programming</a></li>
-<li><a href="dates-strings-and-localization/README.adoc">Dates, Strings, and Localization</a></li>
-<li><a href="exceptions-and-assertions/README.adoc">Exceptions and Assertions</a></li>
-<li><a href="concurrency/README.adoc">Concurrency</a></li>
-<li><a href="io/README.adoc">IO</a></li>
-<li><a href="nio-2/README.adoc">NIO.2</a></li>
-<li><a href="jdbc/README.adoc">JDBC</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch1-advanced-class-design.adoc">Advanced Class Design</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch2-design-patterns-and-principles.adoc">Design Patterns and Principles</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch3-generics-and-collections.adoc">Generics and Collections</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch4-functional-programming.adoc">Functional Programming</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch5-dates-strings-and-localization.adoc">Dates, Strings, and Localization</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch6-exceptions-and-assertions.adoc">Exceptions and Assertions</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch7-concurrency.adoc">Concurrency</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch8-io.adoc">IO</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch9-nio-2.adoc">NIO.2</a></li>
+<li><a href="docs/src/docs/asciidoc/chapters/ch10-jdbc.adoc">JDBC</a></li>
 </ol>
 ++++

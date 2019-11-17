@@ -1,0 +1,12 @@
+:encoding: utf-8
+:lang: en
+:author: Fatih Bozik
+:doctitle: Certified Professional: Java SE 8 Programmer II Notes
+
+:toc: left
+:toclevels: 3
+:sectnums:
+:chapter-label:
+:revremark: {docdate}
+
+:title-logo-image: image::logo.svg[align=center, pdfwidth=2.5in]
