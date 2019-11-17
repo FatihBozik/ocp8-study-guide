@@ -436,8 +436,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-left">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>Certified Professional: Java SE 8 Programmer II Notes</h1>
 <div class="details">
@@ -505,31 +506,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package cat;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">cat</span><span class="o">;</span>
 
-public class BigCat {
-    public String name = "cat";
-    protected boolean hasFur = true;
-    boolean hasPaws = true;
-    private int id;
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BigCat</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"cat"</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="n">hasFur</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">hasPaws</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
 
-    public static void main(String[] args) {
-        BigCat cat = new BigCat();
-        System.out.println(cat.name);
-        System.out.println(cat.hasFur);
-        System.out.println(cat.hasPaws);
-        System.out.println(cat.id);
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigCat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigCat</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">hasFur</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">hasPaws</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">id</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package cat.species;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">cat</span><span class="o">.</span><span class="na">species</span><span class="o">;</span>
 
-import cat.BigCat;
+<span class="kn">import</span> <span class="nn">cat.BigCat</span><span class="o">;</span>
 
-public class Lynx extends BigCat { }</code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lynx</span> <span class="kd">extends</span> <span class="n">BigCat</span> <span class="o">{</span> <span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -539,19 +540,19 @@ Which variables will be allowed?</p>
 <div class="listingblock">
 <div class="title">Lynx.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package cat.species;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">cat</span><span class="o">.</span><span class="na">species</span><span class="o">;</span>
 
-import cat.BigCat;
+<span class="kn">import</span> <span class="nn">cat.BigCat</span><span class="o">;</span>
 
-public class Lynx extends BigCat {
-    public static void main(String[] args) {
-        BigCat cat = new BigCat();
-        System.out.println(cat.name);
-        System.out.println(cat.hasFur);   // DOES NOT COMPILE
-        System.out.println(cat.hasPawns); // DOES NOT COMPILE
-        System.out.println(cat.id);       // DOES NOT COMPILE
-    }
-}</code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lynx</span> <span class="kd">extends</span> <span class="n">BigCat</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigCat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigCat</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">hasFur</span><span class="o">);</span>   <span class="c1">// DOES NOT COMPILE</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">hasPawns</span><span class="o">);</span> <span class="c1">// DOES NOT COMPILE</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">id</span><span class="o">);</span>       <span class="c1">// DOES NOT COMPILE</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -687,24 +688,24 @@ It tries to find the following:</p>
 <div class="listingblock">
 <div class="title">Bobcat.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Bobcat {
-  public void findDen() { }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bobcat</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">BobcatKitten.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class BobcatKitten extends Bobcat {
-  // overriding because it has the same method signatures
-  public void findDen() { }
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BobcatKitten</span> <span class="kd">extends</span> <span class="n">Bobcat</span> <span class="o">{</span>
+  <span class="c1">// overriding because it has the same method signatures</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
 
-  // overloading because it has the same method name but different parameter list
-  public void findDen(boolean b) { }
+  <span class="c1">// overloading because it has the same method name but different parameter list</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
 
-  // not an override or overload because it has different method name
-  public int findden() throws Exception { return 0; }
-}</code></pre>
+  <span class="c1">// not an override or overload because it has different method name</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findden</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span> <span class="k">return</span> <span class="mi">0</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -726,15 +727,15 @@ The methods can be abstract or concrete.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">abstract class Cat {
-    // 1. abstract void clean(); // independently compiles
-    // 2. leave it blank         // independently compiles
-    // 3. void clean() {}        // independently compiles
-}
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Cat</span> <span class="o">{</span>
+    <span class="c1">// 1. abstract void clean(); // independently compiles</span>
+    <span class="c1">// 2. leave it blank         // independently compiles</span>
+    <span class="c1">// 3. void clean() {}        // independently compiles</span>
+<span class="o">}</span>
 
-class Lion extends Cat {
-    void clean() {}
-}</code></pre>
+<span class="kd">class</span> <span class="nc">Lion</span> <span class="kd">extends</span> <span class="n">Cat</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">clean</span><span class="o">()</span> <span class="o">{}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -762,13 +763,13 @@ Using <code>final</code> on a class means that it cannot be subclassed.</p>
 <h3 id="_imports">1.5. Imports</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class ListHelper {
-    public List&lt;String&gt; copyAndSortList(List&lt;String&gt; original) {
-        List&lt;String&gt; list = new ArrayList&lt;String&gt;(original);
-        sort(list);
-        return list;
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListHelper</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">copyAndSortList</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">original</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(</span><span class="n">original</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -776,20 +777,20 @@ Using <code>final</code> on a class means that it cannot be subclassed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import static java.util.Collections.sort;
-// or using wildcard -&gt; import static java.util.Collections.*;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">;</span>
+<span class="c1">// or using wildcard -&gt; import static java.util.Collections.*;</span>
 
-import java.util.List;
-import java.util.ArrayList;
-// or using wildcard -&gt; import java.util.*;
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="c1">// or using wildcard -&gt; import java.util.*;</span>
 
-public class ListHelper {
-    public List&lt;String&gt; copyAndSortList(List&lt;String&gt; original) {
-        List&lt;String&gt; list = new ArrayList&lt;String&gt;(original);
-        sort(list);
-        return list;
-    }
-}</code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListHelper</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">copyAndSortList</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">original</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(</span><span class="n">original</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -804,26 +805,26 @@ public class ListHelper {
 <p>All Java classes inherit from <code>Object</code>, which means that x instanceof Object is usually true except for one case where it is <code>false</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class HeavyAnimal { }
-class Hippo extends HeavyAnimal { }
-class Elephant extends HeavyAnimal { }
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">class</span> <span class="nc">HeavyAnimal</span> <span class="o">{</span> <span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Hippo</span> <span class="kd">extends</span> <span class="n">HeavyAnimal</span> <span class="o">{</span> <span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Elephant</span> <span class="kd">extends</span> <span class="n">HeavyAnimal</span> <span class="o">{</span> <span class="o">}</span>
 
-class Test {
-    public static void main(String[] args){
-      HeavyAnimal hippo = new Hippo();
-      boolean b1 = hippo instanceof Object;           // true
-      boolean b2 = hippo instanceof HeavyAnimal;      // true
-      boolean b3 = hippo instanceof Hippo;            // true
-      boolean b4 = hippo instanceof Elephant;         // false
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+      <span class="n">HeavyAnimal</span> <span class="n">hippo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hippo</span><span class="o">();</span>
+      <span class="kt">boolean</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">hippo</span> <span class="k">instanceof</span> <span class="n">Object</span><span class="o">;</span>           <span class="c1">// true</span>
+      <span class="kt">boolean</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">hippo</span> <span class="k">instanceof</span> <span class="n">HeavyAnimal</span><span class="o">;</span>      <span class="c1">// true</span>
+      <span class="kt">boolean</span> <span class="n">b3</span> <span class="o">=</span> <span class="n">hippo</span> <span class="k">instanceof</span> <span class="n">Hippo</span><span class="o">;</span>            <span class="c1">// true</span>
+      <span class="kt">boolean</span> <span class="n">b4</span> <span class="o">=</span> <span class="n">hippo</span> <span class="k">instanceof</span> <span class="n">Elephant</span><span class="o">;</span>         <span class="c1">// false</span>
 
-      Hippo nullHippo = null;
-      boolean b5 = nullHippo instanceof Object;       // false
+      <span class="n">Hippo</span> <span class="n">nullHippo</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+      <span class="kt">boolean</span> <span class="n">b5</span> <span class="o">=</span> <span class="n">nullHippo</span> <span class="k">instanceof</span> <span class="n">Object</span><span class="o">;</span>       <span class="c1">// false</span>
 
-      Hippo anotherHippo = new Hippo();
-      boolean b6 = anotherHippo instanceof Elephant;  // DOES NOT COMPILE
-      boolean b7 = 15 instanceof Elephant;            // DOES NOT COMPILE
-    }
-}</code></pre>
+      <span class="n">Hippo</span> <span class="n">anotherHippo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hippo</span><span class="o">();</span>
+      <span class="kt">boolean</span> <span class="n">b6</span> <span class="o">=</span> <span class="n">anotherHippo</span> <span class="k">instanceof</span> <span class="n">Elephant</span><span class="o">;</span>  <span class="c1">// DOES NOT COMPILE</span>
+      <span class="kt">boolean</span> <span class="n">b7</span> <span class="o">=</span> <span class="mi">15</span> <span class="k">instanceof</span> <span class="n">Elephant</span><span class="o">;</span>            <span class="c1">// DOES NOT COMPILE</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </li>
@@ -838,15 +839,15 @@ The reason is that a subclass could implement that interface and the compiler wo
 The compiler knows an interface could be added, so the instanceof statement could be true for some subclasses, whereas there is no possible way to turn a Hippo into an Elephant.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">interface Mother { }
-class HeavyAnimal { }
-class Hippo extends HeavyAnimal { }
-class Test {
-    public static void main(String[] args){
-        HeavyAnimal hippo = new Hippo();
-        boolean b8 = hippo instanceof Mother;
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">interface</span> <span class="nc">Mother</span> <span class="o">{</span> <span class="o">}</span>
+<span class="kd">class</span> <span class="nc">HeavyAnimal</span> <span class="o">{</span> <span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Hippo</span> <span class="kd">extends</span> <span class="n">HeavyAnimal</span> <span class="o">{</span> <span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">HeavyAnimal</span> <span class="n">hippo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hippo</span><span class="o">();</span>
+        <span class="kt">boolean</span> <span class="n">b8</span> <span class="o">=</span> <span class="n">hippo</span> <span class="k">instanceof</span> <span class="n">Mother</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -855,7 +856,7 @@ The compiler allows the statement because there could later be a class such a th
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class MotherHippo extends Hippo implements Mother { }</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">class</span> <span class="nc">MotherHippo</span> <span class="kd">extends</span> <span class="n">Hippo</span> <span class="kd">implements</span> <span class="n">Mother</span> <span class="o">{</span> <span class="o">}</span></code></pre>
 </div>
 </div>
 </li>
@@ -871,28 +872,28 @@ In fact, all non-final, non-static, and non-private Java methods are considered 
 <div class="listingblock">
 <div class="title">PlayWithAnimal.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">abstract class Animal {
-    public void careFor() {
-	  play();
-    }
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">careFor</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="n">play</span><span class="o">();</span>
+    <span class="o">}</span>
 
-    public void play() {
-	  System.out.println("pet animal");
-    }
-}
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"pet animal"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-class Lion extends Animal {
-    public void play() {
-	  System.out.println("toss in meat");
-    }
-}
+<span class="kd">class</span> <span class="nc">Lion</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"toss in meat"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-public class PlayWithAnimal {
-    public static void main(String... args) {
-	  Animal animal = new Lion();
-	  animal.careFor(); // toss in meat
-    }
-}</code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayWithAnimal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Lion</span><span class="o">();</span>
+	  <span class="n">animal</span><span class="o">.</span><span class="na">careFor</span><span class="o">();</span> <span class="c1">// toss in meat</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -910,17 +911,17 @@ It begins with an <code>@</code> symbol and can be used by the compiler or even 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class BobcatMother {
-    public void findDen() { }
-}
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">class</span> <span class="nc">BobcatMother</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
 
-class Bobcat extends BobcatMother {
-    @Override
-    public void findDen() { }
+<span class="kd">class</span> <span class="nc">Bobcat</span> <span class="kd">extends</span> <span class="n">BobcatMother</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
 
-    @Override
-    public void findDen(boolean b) { } // DOES NOT COMPILE
-}</code></pre>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findDen</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span> <span class="c1">// DOES NOT COMPILE</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -937,10 +938,10 @@ Some classes supply a human-readable implementation of <code>toString</code> and
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public static void main(String[] args) {
-    System.out.println(new ArrayList()); // []
-    System.out.println(new String[0]);   // [Ljava.lang.String;@61bbe9ba
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">());</span> <span class="c1">// []</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>   <span class="c1">// [Ljava.lang.String;@61bbe9ba</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -949,25 +950,25 @@ They can simply print out your object and understand what it represents.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Hippo {
-    private String name;
-    private double weight;
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hippo</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">;</span>
 
-    public Hippo(String name, double weight) {
-	  this.name = name;
-	  this.weight = weight;
-    }
+    <span class="kd">public</span> <span class="nf">Hippo</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    @Override
-    public String toString() {
-	  return "name: " + name + ", weight: " + weight;
-    }
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="k">return</span> <span class="s">"name: "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">", weight: "</span> <span class="o">+</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
-	  Hippo hippo = new Hippo("Harry", 768);
-	  System.out.println(hippo); // name: Harry, weight: 768.0
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">Hippo</span> <span class="n">hippo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hippo</span><span class="o">(</span><span class="s">"Harry"</span><span class="o">,</span> <span class="mi">768</span><span class="o">);</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hippo</span><span class="o">);</span> <span class="c1">// name: Harry, weight: 768.0</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -977,33 +978,33 @@ They can simply print out your object and understand what it represents.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package ToString;
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">ToString</span><span class="o">;</span>
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.builder.ToStringBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.builder.ToStringStyle</span><span class="o">;</span>
 
-class Hippo {
-    private String name;
-    private double weight;
+<span class="kd">class</span> <span class="nc">Hippo</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">;</span>
 
-    // Constructor
+    <span class="c1">// Constructor</span>
 
-    @Override
-    public String toString() {
-      // Hippo[name=Harry,weight=768.0]
-      return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="c1">// Hippo[name=Harry,weight=768.0]</span>
+      <span class="k">return</span> <span class="n">ToStringBuilder</span><span class="o">.</span><span class="na">reflectionToString</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">ToStringStyle</span><span class="o">.</span><span class="na">SHORT_PREFIX_STYLE</span><span class="o">);</span>
 
-      // ToString.Hippo@12a89a7[name=Harry,weight=768.0]
-      // return ToStringBuilder.reflectionToString(this);
-    }
-}
+      <span class="c1">// ToString.Hippo@12a89a7[name=Harry,weight=768.0]</span>
+      <span class="c1">// return ToStringBuilder.reflectionToString(this);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-class HippoTest {
-    public static void main(String[] args){
-      Hippo hippo = new Hippo("Harry", 768);
-      System.out.println(hippo);
-   }
-}</code></pre>
+<span class="kd">class</span> <span class="nc">HippoTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+      <span class="n">Hippo</span> <span class="n">hippo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hippo</span><span class="o">(</span><span class="s">"Harry"</span><span class="o">,</span> <span class="mi">768</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hippo</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1020,13 +1021,13 @@ This lets the <code>ToStringBuilder</code> class determine what are all of the i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">String s1 = new String("lion");
-String s2 = new String("lion");
-System.out.println(s1.equals(s2)); // true
+<pre class="rouge highlight"><code data-lang="java"><span class="n">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"lion"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">"lion"</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s2</span><span class="o">));</span> <span class="c1">// true</span>
 
-StringBuilder sb1 = new StringBuilder("lion");
-StringBuilder sb2 = new StringBuilder("lion");
-System.out.println(sb1.equals(sb2)); // false</code></pre>
+<span class="n">StringBuilder</span> <span class="n">sb1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">"lion"</span><span class="o">);</span>
+<span class="n">StringBuilder</span> <span class="n">sb2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">"lion"</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">sb2</span><span class="o">));</span> <span class="c1">// false</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1035,26 +1036,26 @@ It checks that the values are the same. <code>StringBuilder</code> uses the impl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Lion {
-    private int id;
-    private int age;
-    private String name;
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Lion</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 
-    public Lion(int id, int age, String name) {
-	  this.id = id;
-	  this.age = age;
-	  this.name = name;
-    }
+    <span class="kd">public</span> <span class="nf">Lion</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    @Override
-    public boolean equals(Object obj) {
-	  if (!(obj instanceof Lion)) {
-	      return false;
-	  }
-	  Lion otherLion = (Lion) obj;
-	  return (this.id == otherLion.id);
-    }
-}</code></pre>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">if</span> <span class="o">(!(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="n">Lion</span><span class="o">))</span> <span class="o">{</span>
+	      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	  <span class="o">}</span>
+	  <span class="n">Lion</span> <span class="n">otherLion</span> <span class="o">=</span> <span class="o">(</span><span class="n">Lion</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+	  <span class="k">return</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">==</span> <span class="n">otherLion</span><span class="o">.</span><span class="na">id</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -1092,9 +1093,9 @@ It checks that the values are the same. <code>StringBuilder</code> uses the impl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public boolean equals(Object obj) {
-  return EqualsBuilder.reflectionEquals(this, obj);
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">EqualsBuilder</span><span class="o">.</span><span class="na">reflectionEquals</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">obj</span><span class="o">);</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1103,18 +1104,18 @@ However, for <code>equals()</code>, it is common to look at just one or two inst
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Override
-public boolean equals(Object obj) {
-    if (!(obj instanceof Lion)) {
-        return false;
-    }
-    Lion other = (Lion) obj;
-    return new EqualsBuilder()
-           .appendSuper(super.equals(obj))
-           .append(id, other.id)
-           .append(name, other.name)
-           .isEquals();
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="n">Lion</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">Lion</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="n">Lion</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">EqualsBuilder</span><span class="o">()</span>
+           <span class="o">.</span><span class="na">appendSuper</span><span class="o">(</span><span class="kd">super</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">obj</span><span class="o">))</span>
+           <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">other</span><span class="o">.</span><span class="na">id</span><span class="o">)</span>
+           <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">other</span><span class="o">.</span><span class="na">name</span><span class="o">)</span>
+           <span class="o">.</span><span class="na">isEquals</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1130,30 +1131,30 @@ The hash code is used when storing the object as a key in a map.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class Card {
-    private String rank;
-    private String suit;
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">class</span> <span class="nc">Card</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">rank</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">suit</span><span class="o">;</span>
 
-    public Card(String rank, String suit) {
-	  if (rank == null || suit == null) {
-	      throw new IllegalArgumentException();
-	  }
-	  this.rank = rank;
-	  this.suit = suit;
-    }
+    <span class="kd">public</span> <span class="nf">Card</span><span class="o">(</span><span class="n">String</span> <span class="n">rank</span><span class="o">,</span> <span class="n">String</span> <span class="n">suit</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">if</span> <span class="o">(</span><span class="n">rank</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">suit</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+	      <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">();</span>
+	  <span class="o">}</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">rank</span> <span class="o">=</span> <span class="n">rank</span><span class="o">;</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">suit</span> <span class="o">=</span> <span class="n">suit</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    public boolean equals(Object obj) {
-	  if (!(obj instanceof Card)) {
-	      return false;
-	  }
-	  Card other = (Card) obj;
-	  return rank.equals(other.rank) &amp;&amp; suit.equals(other.suit);
-    }
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">if</span> <span class="o">(!(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="n">Card</span><span class="o">))</span> <span class="o">{</span>
+	      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+	  <span class="o">}</span>
+	  <span class="n">Card</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="n">Card</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+	  <span class="k">return</span> <span class="n">rank</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">rank</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">suit</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">suit</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    public int hashCode() {
-	  return rank.hashCode();
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="k">return</span> <span class="n">rank</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1189,11 +1190,11 @@ This means <code>hashCode()</code> results do not need to be unique when called 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public int hashCode() { return id; } // Legal
-public int hashCode() { return 6; } // Legal but isn't particularly efficient
-public long hashcode() { return id; } // DOES NOT COMPILE
-public int hashCode() { return id * 7 + age; } // is not legal because it is used
-                                               // more variables than equals()</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">id</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// Legal</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="mi">6</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// Legal but isn't particularly efficient</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="nf">hashcode</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">id</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// DOES NOT COMPILE</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">id</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">+</span> <span class="n">age</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// is not legal because it is used</span>
+                                               <span class="c1">// more variables than equals()</span></code></pre>
 </div>
 </div>
 </div>
@@ -1205,9 +1206,9 @@ Just pick the key fields that identify your object (and don&#8217;t change durin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public int hashCode() {
-  return keyField + (7 * otherKeyField.hashCode());
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">keyField</span> <span class="o">+</span> <span class="o">(</span><span class="mi">7</span> <span class="o">*</span> <span class="n">otherKeyField</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1237,9 +1238,9 @@ Then list all of the valid types for that enum.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">enum Season {
-    WINTER, SPRING, SUMMER, FALL;
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>
+    <span class="n">WINTER</span><span class="o">,</span> <span class="n">SPRING</span><span class="o">,</span> <span class="n">SUMMER</span><span class="o">,</span> <span class="n">FALL</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1251,9 +1252,9 @@ It also includes some helper methods like <code>name()</code> or <code>values()<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Season s = Season.SUMMER;
-System.out.println(Season.SUMMER); // SUMMER
-System.out.println(s == Season.SUMMER); // true</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="n">Season</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span><span class="o">;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span><span class="o">);</span> <span class="c1">// SUMMER</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span><span class="o">);</span> <span class="c1">// true</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1262,12 +1263,12 @@ You can use this like any normal array, including in a loop.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">for(Season season: Season.values()) {
-    System.out.println(season.name() + " " + season.ordinal()); // WINTER 0
-                                                                // SPRING 1
-                                                                // SUMMER 2
-                                                                // FALL 3
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="k">for</span><span class="o">(</span><span class="n">Season</span> <span class="nl">season:</span> <span class="n">Season</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">season</span><span class="o">.</span><span class="na">name</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">season</span><span class="o">.</span><span class="na">ordinal</span><span class="o">());</span> <span class="c1">// WINTER 0</span>
+                                                                <span class="c1">// SPRING 1</span>
+                                                                <span class="c1">// SUMMER 2</span>
+                                                                <span class="c1">// FALL 3</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1275,7 +1276,7 @@ You can use this like any normal array, including in a loop.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">if(Season.SUMMER == 2) { } // DOES NOT COMPILE</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span> <span class="c1">// DOES NOT COMPILE</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1284,8 +1285,8 @@ The <code>String</code> passed in must match exactly.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Season s1 = Season.valueOf("SUMMER"); // SUMMER
-Season s2 = Season.valueOf("summer"); // throws IllegalArgumentException</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="n">Season</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">Season</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="s">"SUMMER"</span><span class="o">);</span> <span class="c1">// SUMMER</span>
+<span class="n">Season</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">Season</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="s">"summer"</span><span class="o">);</span> <span class="c1">// throws IllegalArgumentException</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1293,7 +1294,7 @@ Season s2 = Season.valueOf("summer"); // throws IllegalArgumentException</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public enum ExtendedSeason extends Season { } // DOES NOT COMPILE</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">ExtendedSeason</span> <span class="kd">extends</span> <span class="n">Season</span> <span class="o">{</span> <span class="o">}</span> <span class="c1">// DOES NOT COMPILE</span></code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -1303,24 +1304,24 @@ Season s2 = Season.valueOf("summer"); // throws IllegalArgumentException</code><
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">Season summer = Season.SUMMER;
+<pre class="rouge highlight"><code data-lang="java"><span class="n">Season</span> <span class="n">summer</span> <span class="o">=</span> <span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span><span class="o">;</span>
 
-switch (summer) {
-    case WINTER:
-       System.out.println("Winter");
-       break;
-    case SUMMER:
-       System.out.println("Summer");
-       break;
-    // case Season.FALL: // DOES NOT COMPILE
-    //	  System.out.println("Fall");
-    // 	  break;
-    // case 2: // DOES NOT COMPILE
-    //    System.out.println("2");
-    //    break;
-    default:
-       System.out.println("Default");
-}</code></pre>
+<span class="k">switch</span> <span class="o">(</span><span class="n">summer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">WINTER:</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Winter"</span><span class="o">);</span>
+       <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="nl">SUMMER:</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Summer"</span><span class="o">);</span>
+       <span class="k">break</span><span class="o">;</span>
+    <span class="c1">// case Season.FALL: // DOES NOT COMPILE</span>
+    <span class="c1">//	  System.out.println("Fall");</span>
+    <span class="c1">// 	  break;</span>
+    <span class="c1">// case 2: // DOES NOT COMPILE</span>
+    <span class="c1">//    System.out.println("2");</span>
+    <span class="c1">//    break;</span>
+    <span class="k">default</span><span class="o">:</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Default"</span><span class="o">);</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1332,26 +1333,26 @@ It is common to give state to each one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">enum Season {
-    WINTER("Low"),
-    SPRING("Medium"),
-    SUMMER("High"),
-    FALL("Medium"); // This semicolon required if
-                    // there is anything in the enum
-                    // besides the values.
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>
+    <span class="n">WINTER</span><span class="o">(</span><span class="s">"Low"</span><span class="o">),</span>
+    <span class="n">SPRING</span><span class="o">(</span><span class="s">"Medium"</span><span class="o">),</span>
+    <span class="n">SUMMER</span><span class="o">(</span><span class="s">"High"</span><span class="o">),</span>
+    <span class="n">FALL</span><span class="o">(</span><span class="s">"Medium"</span><span class="o">);</span> <span class="c1">// This semicolon required if</span>
+                    <span class="c1">// there is anything in the enum</span>
+                    <span class="c1">// besides the values.</span>
 
-    private String expectedVisitors;
-    private Season(String expectedVisitors) {
-	  this.expectedVisitors = expectedVisitors;
-    }
-    public void printExpectedVisitors() {
-	  System.out.println(expectedVisitors);
-    }
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">expectedVisitors</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nf">Season</span><span class="o">(</span><span class="n">String</span> <span class="n">expectedVisitors</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">this</span><span class="o">.</span><span class="na">expectedVisitors</span> <span class="o">=</span> <span class="n">expectedVisitors</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printExpectedVisitors</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">expectedVisitors</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
-      Season.SUMMER.printExpectedVisitors(); // High
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">Season</span><span class="o">.</span><span class="na">SUMMER</span><span class="o">.</span><span class="na">printExpectedVisitors</span><span class="o">();</span> <span class="c1">// High</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1363,18 +1364,18 @@ Given that explanation, you can see why this code calls the constructor only onc
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public enum OnlyOne {
-    ONCE(true);
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">OnlyOne</span> <span class="o">{</span>
+    <span class="n">ONCE</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 
-    private OnlyOne(boolean b) {
-	  System.out.println("constructing");
-    }
+    <span class="kd">private</span> <span class="nf">OnlyOne</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"constructing"</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
-	  OnlyOne firstCall = OnlyOne.ONCE;  // prints constructing
-	  OnlyOne secondCall = OnlyOne.ONCE; // doesn't print anything
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">OnlyOne</span> <span class="n">firstCall</span> <span class="o">=</span> <span class="n">OnlyOne</span><span class="o">.</span><span class="na">ONCE</span><span class="o">;</span>  <span class="c1">// prints constructing</span>
+	  <span class="n">OnlyOne</span> <span class="n">secondCall</span> <span class="o">=</span> <span class="n">OnlyOne</span><span class="o">.</span><span class="na">ONCE</span><span class="o">;</span> <span class="c1">// doesn't print anything</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1384,34 +1385,34 @@ Here is a Java enum abstract method example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">enum Season {
-    WINTER {
-	  @Override
-	  public void printHours() {
-	    System.out.println("9am-3pm");
-	  }
-    },
-    SPRING {
-	  @Override
-	  public void printHours() {
-	    System.out.println("9am-5pm");
-	  }
-    },
-    SUMMER {
-	  @Override
-	  public void printHours() {
-	    System.out.println("9am-7pm");
-	  }
-    },
-    FALL {
-	  @Override
-	  public void printHours() {
-	    System.out.println("9am-5pm");
-	  }
-    };
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>
+    <span class="n">WINTER</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-3pm"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">SPRING</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-5pm"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">SUMMER</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-7pm"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">FALL</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-5pm"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">};</span>
 
-    public abstract void printHours();
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">();</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1420,25 +1421,25 @@ Here is a Java enum abstract method example:</p>
 <div class="listingblock">
 <div class="title">filename.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public enum Season {
-    WINTER {
-	  @Override
-	  public void printHours() {
-	    System.out.println("short hours");
-	  }
-    },
-    SUMMER {
-	  @Override
-	  public void printHours() {
-	    System.out.println("long hours");
-	  }
-    },
-    SPRING, FALL;
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>
+    <span class="n">WINTER</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"short hours"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">SUMMER</span> <span class="o">{</span>
+	  <span class="nd">@Override</span>
+	  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"long hours"</span><span class="o">);</span>
+	  <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="n">SPRING</span><span class="o">,</span> <span class="n">FALL</span><span class="o">;</span>
 
-    public void printHours() {
-	  System.out.println("Default hours");
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Default hours"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1446,87 +1447,87 @@ Here is a Java enum abstract method example:</p>
 <h4 id="_behind_the_scenes_enum">1.10.3. Behind The Scenes Enum</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">enum Season {                     // final class Season extends Enum&lt;Season&gt; {
-    WINTER, SPRING, SUMMER, FALL  //     public static final Season WINTER;
-}                                 //     public static final Season SPRING;
-                                  //     public static final Season SUMMER;
-                                  //     public static final Season FALL;
-                                  //     private static final Season[] $VALUES;
-                                  //
-                                  //     private Season(String name, int ordinal) {
-                                  //        super(name, ordinal);
-                                  //     }
-                                  //
-                                  //     static {
-                                  //        WINTER = new Season("WINTER", 0);
-                                  //        SPRING = new Season("SPRING", 1);
-                                  //        SUMMER = new Season("SUMMER", 2);
-                                  //        FALL = new Season("FALL", 3);
-                                  //	       $VALUES = new Season[] {
-                                  //		      WINTER, SPRING, SUMMER, FALL
-                                  //        };
-                                  //     }
-                                  //
-                                  //     public static Season[] values() {
-                                  //        return $VALUES.clone();
-                                  //     }
-                                  //
-                                  //     public static Season valueOf(String name) {
-                                  //        return Enum.valueOf(Season.class, name);
-                                  //     }</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>                     <span class="c1">// final class Season extends Enum&lt;Season&gt; {</span>
+    <span class="n">WINTER</span><span class="o">,</span> <span class="n">SPRING</span><span class="o">,</span> <span class="n">SUMMER</span><span class="o">,</span> <span class="n">FALL</span>  <span class="c1">//     public static final Season WINTER;</span>
+<span class="o">}</span>                                 <span class="c1">//     public static final Season SPRING;</span>
+                                  <span class="c1">//     public static final Season SUMMER;</span>
+                                  <span class="c1">//     public static final Season FALL;</span>
+                                  <span class="c1">//     private static final Season[] $VALUES;</span>
+                                  <span class="c1">//</span>
+                                  <span class="c1">//     private Season(String name, int ordinal) {</span>
+                                  <span class="c1">//        super(name, ordinal);</span>
+                                  <span class="c1">//     }</span>
+                                  <span class="c1">//</span>
+                                  <span class="c1">//     static {</span>
+                                  <span class="c1">//        WINTER = new Season("WINTER", 0);</span>
+                                  <span class="c1">//        SPRING = new Season("SPRING", 1);</span>
+                                  <span class="c1">//        SUMMER = new Season("SUMMER", 2);</span>
+                                  <span class="c1">//        FALL = new Season("FALL", 3);</span>
+                                  <span class="c1">//	       $VALUES = new Season[] {</span>
+                                  <span class="c1">//		      WINTER, SPRING, SUMMER, FALL</span>
+                                  <span class="c1">//        };</span>
+                                  <span class="c1">//     }</span>
+                                  <span class="c1">//</span>
+                                  <span class="c1">//     public static Season[] values() {</span>
+                                  <span class="c1">//        return $VALUES.clone();</span>
+                                  <span class="c1">//     }</span>
+                                  <span class="c1">//</span>
+                                  <span class="c1">//     public static Season valueOf(String name) {</span>
+                                  <span class="c1">//        return Enum.valueOf(Season.class, name);</span>
+                                  <span class="c1">//     }</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">enum Season {                              // abstract class Season extends Enum&lt;Season&gt; {
-    WINTER {                               //    public static final Season WINTER;
-	@Override                          //    public static final Season SPRING;
-	public void printHours() {         //    public static final Season SUMMER;
-	    System.out.println("9am-3pm"); //    public static final Season FALL;
-	}                                  //    private static final Season[] $VALUES;
-    },                                     //
-    SPRING {                               //    private Season(String name, int ordinal) {
-	@Override                          //       super(name, ordinal);
-	public void printHours() {         //    }
-	    System.out.println("9am-5pm"); //
-	}                                  //    static {
-    },                                     //       WINTER = Season("WINTER", 0) {
-    SUMMER {                               //          @Override
-	@Override                          //          public void printHours() {
-	public void printHours() {         //             System.out.println("9am-3pm");
-	    System.out.println("9am-7pm"); //          }
-	}                                  //       };
-    },                                     //       SPRING = Season("SPRING", 1) {
-    FALL {                                 //          @Override
-	@Override                          //          public void printHours() {
-	public void printHours() {         //             System.out.println("9am-5pm");
-	    System.out.println("9am-5pm"); //          }
-	}                                  //       };
-    };                                     //       SUMMER = Season("SUMMER", 2) {
-                                           //          @Override
-    public abstract void printHours();     //          public void printHours() {
-}                                          //             System.out.println("9am-7pm");
-                                           //          }
-                                           //       };
-                                           //       FALL = Season("FALL", 3) {
-                                           //          @Override
-                                           //          public void printHours() {
-                                           //             System.out.println("9am-5pm");
-                                           //          }
-                                           //       };
-                                           //       $VALUES = new Season[] {
-                                           //          WINTER, SPRING, SUMMER, FALL
-                                           //       };
-                                           //    }
-                                           //
-                                           //    public static Season[] values() {
-                                           //       return $VALUES.clone();
-                                           //    }
-                                           //
-                                           //    public static Season valueOf(String name) {
-                                           //       return Enum.valueOf(Season.class, name);
-                                           //    }
-                                           // }</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">enum</span> <span class="n">Season</span> <span class="o">{</span>                              <span class="c1">// abstract class Season extends Enum&lt;Season&gt; {</span>
+    <span class="n">WINTER</span> <span class="o">{</span>                               <span class="c1">//    public static final Season WINTER;</span>
+	<span class="nd">@Override</span>                          <span class="c1">//    public static final Season SPRING;</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>         <span class="c1">//    public static final Season SUMMER;</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-3pm"</span><span class="o">);</span> <span class="c1">//    public static final Season FALL;</span>
+	<span class="o">}</span>                                  <span class="c1">//    private static final Season[] $VALUES;</span>
+    <span class="o">},</span>                                     <span class="c1">//</span>
+    <span class="n">SPRING</span> <span class="o">{</span>                               <span class="c1">//    private Season(String name, int ordinal) {</span>
+	<span class="nd">@Override</span>                          <span class="c1">//       super(name, ordinal);</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>         <span class="c1">//    }</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-5pm"</span><span class="o">);</span> <span class="c1">//</span>
+	<span class="o">}</span>                                  <span class="c1">//    static {</span>
+    <span class="o">},</span>                                     <span class="c1">//       WINTER = Season("WINTER", 0) {</span>
+    <span class="n">SUMMER</span> <span class="o">{</span>                               <span class="c1">//          @Override</span>
+	<span class="nd">@Override</span>                          <span class="c1">//          public void printHours() {</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>         <span class="c1">//             System.out.println("9am-3pm");</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-7pm"</span><span class="o">);</span> <span class="c1">//          }</span>
+	<span class="o">}</span>                                  <span class="c1">//       };</span>
+    <span class="o">},</span>                                     <span class="c1">//       SPRING = Season("SPRING", 1) {</span>
+    <span class="n">FALL</span> <span class="o">{</span>                                 <span class="c1">//          @Override</span>
+	<span class="nd">@Override</span>                          <span class="c1">//          public void printHours() {</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">()</span> <span class="o">{</span>         <span class="c1">//             System.out.println("9am-5pm");</span>
+	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"9am-5pm"</span><span class="o">);</span> <span class="c1">//          }</span>
+	<span class="o">}</span>                                  <span class="c1">//       };</span>
+    <span class="o">};</span>                                     <span class="c1">//       SUMMER = Season("SUMMER", 2) {</span>
+                                           <span class="c1">//          @Override</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">printHours</span><span class="o">();</span>     <span class="c1">//          public void printHours() {</span>
+<span class="o">}</span>                                          <span class="c1">//             System.out.println("9am-7pm");</span>
+                                           <span class="c1">//          }</span>
+                                           <span class="c1">//       };</span>
+                                           <span class="c1">//       FALL = Season("FALL", 3) {</span>
+                                           <span class="c1">//          @Override</span>
+                                           <span class="c1">//          public void printHours() {</span>
+                                           <span class="c1">//             System.out.println("9am-5pm");</span>
+                                           <span class="c1">//          }</span>
+                                           <span class="c1">//       };</span>
+                                           <span class="c1">//       $VALUES = new Season[] {</span>
+                                           <span class="c1">//          WINTER, SPRING, SUMMER, FALL</span>
+                                           <span class="c1">//       };</span>
+                                           <span class="c1">//    }</span>
+                                           <span class="c1">//</span>
+                                           <span class="c1">//    public static Season[] values() {</span>
+                                           <span class="c1">//       return $VALUES.clone();</span>
+                                           <span class="c1">//    }</span>
+                                           <span class="c1">//</span>
+                                           <span class="c1">//    public static Season valueOf(String name) {</span>
+                                           <span class="c1">//       return Enum.valueOf(Season.class, name);</span>
+                                           <span class="c1">//    }</span>
+                                           <span class="c1">// }</span></code></pre>
 </div>
 </div>
 </div>
@@ -1590,28 +1591,28 @@ Member inner classes have the following properties:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Outer {
-    private String greeting = "Hi";
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Outer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hi"</span><span class="o">;</span>
 
-    protected class Inner {
-      public int repeat = 3;
-      public void go() {
-          for(int i = 0; i &lt; repeat; i++) {
-            System.out.println(greeting);
-          }
-      }
-    }
+    <span class="kd">protected</span> <span class="kd">class</span> <span class="nc">Inner</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kt">int</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">go</span><span class="o">()</span> <span class="o">{</span>
+          <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">repeat</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">greeting</span><span class="o">);</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
 
-    public void callInner() {
-      Inner inner = new Inner();
-      inner.go();
-    }
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">callInner</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">Inner</span> <span class="n">inner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Inner</span><span class="o">();</span>
+      <span class="n">inner</span><span class="o">.</span><span class="na">go</span><span class="o">();</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
-	  Outer outer = new Outer();
-	  outer.callInner();
-    }
-}</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">Outer</span> <span class="n">outer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer</span><span class="o">();</span>
+	  <span class="n">outer</span><span class="o">.</span><span class="na">callInner</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1620,11 +1621,11 @@ This syntax isn&#8217;t used often enough to get used to it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public static void main(String[] args) {
-  Outer outer = new Outer();
-  Inner inner = outer.new Inner(); // create the inner class
-  inner.go;
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Outer</span> <span class="n">outer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer</span><span class="o">();</span>
+  <span class="n">Inner</span> <span class="n">inner</span> <span class="o">=</span> <span class="n">outer</span><span class="o">.</span><span class="na">new</span> <span class="nf">Inner</span><span class="o">();</span> <span class="c1">// create the inner class</span>
+  <span class="n">inner</span><span class="o">.</span><span class="na">go</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1635,40 +1636,40 @@ Please never do this in code you write.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class A {
-    private int x = 10;
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 
-    class B {
-	  private int x = 20;
+    <span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+	  <span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
 
-	  class C {
-	    private int x = 30;
+	  <span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+	    <span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
 
-	    public void allTheX() {
-	      System.out.println(x);            // 30
-		  System.out.println(this.x);       // 30
-		  System.out.println(C.this.x);     // 30
-		  System.out.println(B.C.this.x);   // 30
-		  System.out.println(A.B.C.this.x); // 30
+	    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">allTheX</span><span class="o">()</span> <span class="o">{</span>
+	      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>            <span class="c1">// 30</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>       <span class="c1">// 30</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">C</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>     <span class="c1">// 30</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">B</span><span class="o">.</span><span class="na">C</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>   <span class="c1">// 30</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">B</span><span class="o">.</span><span class="na">C</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span> <span class="c1">// 30</span>
 
-		  System.out.println(B.this.x);     // 20
-		  System.out.println(A.B.this.x);   // 20
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">B</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>     <span class="c1">// 20</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">B</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>   <span class="c1">// 20</span>
 
-		  System.out.println(A.this.x);     // 10
-	    }
-	  }
-    }
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>     <span class="c1">// 10</span>
+	    <span class="o">}</span>
+	  <span class="o">}</span>
+    <span class="o">}</span>
 
-    public static void main(String[] args) {
-	  A a = new A();
-	  A.B b = a.new B();
-	  A.B.C c = b.new C();
-	  c.allTheX();
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">();</span>
+	  <span class="n">A</span><span class="o">.</span><span class="na">B</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">new</span> <span class="nf">B</span><span class="o">();</span>
+	  <span class="n">A</span><span class="o">.</span><span class="na">B</span><span class="o">.</span><span class="na">C</span> <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">new</span> <span class="nf">C</span><span class="o">();</span>
+	  <span class="n">c</span><span class="o">.</span><span class="na">allTheX</span><span class="o">();</span>
 
-	  // Create c2 object in one line
-	  A.B.C c2 = new A().new B().new C();
-    }
-}</code></pre>
+	  <span class="c1">// Create c2 object in one line</span>
+	  <span class="n">A</span><span class="o">.</span><span class="na">B</span><span class="o">.</span><span class="na">C</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">().</span><span class="na">new</span> <span class="n">B</span><span class="o">().</span><span class="na">new</span> <span class="n">C</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -1688,14 +1689,14 @@ This means that interface can only be referred to within the current outer class
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class CaseOfPrivateInterface {
-    private interface Secret {
-        public void shh();
-    }
-    class DontTell implements Secret {
-        public void shh() { }
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CaseOfPrivateInterface</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">interface</span> <span class="nc">Secret</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shh</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">class</span> <span class="nc">DontTell</span> <span class="kd">implements</span> <span class="n">Secret</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shh</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1728,23 +1729,23 @@ Local inner classes have the following properties:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Outer {
-    private int length = 5;
-    public void calculate() {
-	  final int width = 20;
-	  class Inner {
-	    public void multiply() {
-		  System.out.println(length + width);
-	    }
-	  }
-	  Inner inner = new Inner();
-	  inner.multiply();
-    }
-    public static void main(String[] args) {
-	  Outer outer = new Outer();
-	  outer.calculate();
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Outer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calculate</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="kd">final</span> <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+	  <span class="kd">class</span> <span class="nc">Inner</span> <span class="o">{</span>
+	    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">multiply</span><span class="o">()</span> <span class="o">{</span>
+		  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">width</span><span class="o">);</span>
+	    <span class="o">}</span>
+	  <span class="o">}</span>
+	  <span class="n">Inner</span> <span class="n">inner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Inner</span><span class="o">();</span>
+	  <span class="n">inner</span><span class="o">.</span><span class="na">multiply</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">Outer</span> <span class="n">outer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Outer</span><span class="o">();</span>
+	  <span class="n">outer</span><span class="o">.</span><span class="na">calculate</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1764,19 +1765,19 @@ They are useful when you have a short implementation that will not be used anywh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class AnonInner {
-    abstract class SaleTodayOnly {
-        abstract int dollarsOff();
-    }
-    public int admission(int basePrice) {
-        SaleTodayOnly sale = new SaleTodayOnly() {
-	      int dollarsOff() {
-		    return 3;
-	      }
-	    };
-        return basePrice - sale.dollarsOff();
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonInner</span> <span class="o">{</span>
+    <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SaleTodayOnly</span> <span class="o">{</span>
+        <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">admission</span><span class="o">(</span><span class="kt">int</span> <span class="n">basePrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SaleTodayOnly</span> <span class="n">sale</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SaleTodayOnly</span><span class="o">()</span> <span class="o">{</span>
+	      <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">()</span> <span class="o">{</span>
+		    <span class="k">return</span> <span class="mi">3</span><span class="o">;</span>
+	      <span class="o">}</span>
+	    <span class="o">};</span>
+        <span class="k">return</span> <span class="n">basePrice</span> <span class="o">-</span> <span class="n">sale</span><span class="o">.</span><span class="na">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1785,20 +1786,20 @@ They are useful when you have a short implementation that will not be used anywh
 <div class="listingblock">
 <div class="title">filename.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class AnonInner {
-    interface SaleTodayOnly {
-	  int dollarsOff();
-    }
-    public int admission(int basePrice) {
-	  SaleTodayOnly sale = new SaleTodayOnly() {
-	    @Override
-	    public int dollarsOff() {
-		  return 0;
-	    }
-	  };
-	  return basePrice - sale.dollarsOff();
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonInner</span> <span class="o">{</span>
+    <span class="kd">interface</span> <span class="nc">SaleTodayOnly</span> <span class="o">{</span>
+	  <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">admission</span><span class="o">(</span><span class="kt">int</span> <span class="n">basePrice</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">SaleTodayOnly</span> <span class="n">sale</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SaleTodayOnly</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="nd">@Override</span>
+	    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">()</span> <span class="o">{</span>
+		  <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+	    <span class="o">}</span>
+	  <span class="o">};</span>
+	  <span class="k">return</span> <span class="n">basePrice</span> <span class="o">-</span> <span class="n">sale</span><span class="o">.</span><span class="na">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1806,21 +1807,21 @@ They are useful when you have a short implementation that will not be used anywh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class AnonInner {
-    interface SaleTodayOnly {
-	  int dollarsOff();
-    }
-    public int pay() {
-	  return admission(5, new SaleTodayOnly() {
-	    public int dollarsOff() {
-		  return 3;
-	    }
-	  });
-    }
-    public int admission(int basePrice, SaleTodayOnly sale) {
-	  return basePrice - sale.dollarsOff();
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnonInner</span> <span class="o">{</span>
+    <span class="kd">interface</span> <span class="nc">SaleTodayOnly</span> <span class="o">{</span>
+	  <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pay</span><span class="o">()</span> <span class="o">{</span>
+	  <span class="k">return</span> <span class="nf">admission</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="k">new</span> <span class="n">SaleTodayOnly</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">dollarsOff</span><span class="o">()</span> <span class="o">{</span>
+		  <span class="k">return</span> <span class="mi">3</span><span class="o">;</span>
+	    <span class="o">}</span>
+	  <span class="o">});</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">admission</span><span class="o">(</span><span class="kt">int</span> <span class="n">basePrice</span><span class="o">,</span> <span class="n">SaleTodayOnly</span> <span class="n">sale</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">return</span> <span class="n">basePrice</span> <span class="o">-</span> <span class="n">sale</span><span class="o">.</span><span class="na">dollarsOff</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1849,15 +1850,15 @@ For example, <code>new OuterClass().var</code> allows access to the instance var
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class Enclosing {
-    static class Nested {
-	  private int price = 6;
-    }
-    public static void main(String[] args) {
-	  Nested nested = new Nested();
-	  System.out.println(nested.price);
-    }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Enclosing</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Nested</span> <span class="o">{</span>
+	  <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="n">Nested</span> <span class="n">nested</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Nested</span><span class="o">();</span>
+	  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">nested</span><span class="o">.</span><span class="na">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -1868,19 +1869,19 @@ You can import it using a regular import:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package bird;
-public class Toucan {
-    public static class Beak { }
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">bird</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Toucan</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Beak</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package watcher;
-import bird.Toucan.Beak; // regular import ok
-public class BirdWatcher {
-    Beak beak;
-}</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="n">watcher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">bird.Toucan.Beak</span><span class="o">;</span> <span class="c1">// regular import ok</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BirdWatcher</span> <span class="o">{</span>
+    <span class="n">Beak</span> <span class="n">beak</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1888,7 +1889,7 @@ public class BirdWatcher {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import static bird.toucan.Beak;</code></pre>
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">import</span> <span class="nn">static</span> <span class="n">bird</span><span class="o">.</span><span class="na">toucan</span><span class="o">.</span><span class="na">Beak</span><span class="o">;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2055,5 +2056,197 @@ Version 0.02<br>
 Last updated 2019-11-17 03:10:44 +0300
 </div>
 </div>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #6a737d;
+}
+pre.rouge .cp {
+  color: #999999;
+}
+pre.rouge .c1 {
+  color: #6a737d;
+}
+pre.rouge .cs {
+  color: #999999;
+}
+pre.rouge .c, pre.rouge .cd {
+  color: #999988;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #005cc5;
+}
+pre.rouge .kd {
+  color: #d73a49;
+}
+pre.rouge .kn {
+  color: #d73a49;
+}
+pre.rouge .kp {
+  color: #d73a49;
+}
+pre.rouge .kr {
+  color: #d73a49;
+}
+pre.rouge .kt {
+  color: #d73a49;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #d73a49;
+}
+pre.rouge .mf {
+  color: #005cc5;
+}
+pre.rouge .mh {
+  color: #005cc5;
+}
+pre.rouge .il {
+  color: #005cc5;
+}
+pre.rouge .mi {
+  color: #005cc5;
+}
+pre.rouge .mo {
+  color: #005cc5;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #005cc5;
+}
+pre.rouge .sb {
+  color: #032f62;
+}
+pre.rouge .sc {
+  color: #032f62;
+}
+pre.rouge .sd {
+  color: #032f62;
+}
+pre.rouge .s2 {
+  color: #032f62;
+}
+pre.rouge .se {
+  color: #032f62;
+}
+pre.rouge .sh {
+  color: #032f62;
+}
+pre.rouge .si {
+  color: #032f62;
+}
+pre.rouge .sx {
+  color: #032f62;
+}
+pre.rouge .sr {
+  color: #032f62;
+}
+pre.rouge .s1 {
+  color: #032f62;
+}
+pre.rouge .ss {
+  color: #005cc5;
+}
+pre.rouge .s {
+  color: #032f62;
+}
+pre.rouge .na {
+  color: #000000;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #d73a49;
+}
+pre.rouge .nc {
+  color: #6f42c1;
+}
+pre.rouge .no {
+  color: #005cc5;
+}
+pre.rouge .nd {
+  color: #d73a49;
+}
+pre.rouge .ni {
+  color: #6f42c1;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf {
+  color: #6f42c1;
+}
+pre.rouge .nl {
+  color: #000000;
+}
+pre.rouge .nn {
+  color: #000000;
+}
+pre.rouge .nt {
+  color: #000000;
+}
+pre.rouge .vc {
+  color: #000000;
+}
+pre.rouge .vg {
+  color: #000000;
+}
+pre.rouge .vi {
+  color: #000000;
+}
+pre.rouge .nv {
+  color: #000000;
+}
+pre.rouge .ow {
+  color: #d73a49;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #ffffff;
+}
+</style>
 </body>
 </html>
