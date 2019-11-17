@@ -641,4 +641,278 @@ public class Penguin {
 One of the advantages of object composition over inheritance is that it tends to promote greater code reuse.
 By using composition, you gain access to other classes and methods that would be difficult to obtain via Java's single-inheritance model.
 
+=== Working with Design Patterns
+
+A _design pattern_ is an established general solution to a commonly occurring software development problem.
+The purpose of a design pattern is to leverage the wealth of knowledge of developers who have come before you in order to solve old problems that you may encounter easily.
+
+==== Applying Singleton Pattern
+
+*Problem* How do we create an object in memory only once in an application and have it shared by multiple classes?
+
+*Motivation* There are times when we want only one instance of a particular type of object in memory.
+
+*Solution* The _singleton pattern_ is a creational pattern focused on creating only one instance of an object in memory within an application, sharable by all classes and threads within the application.
+The globally available object created by the singleton pattern is referred to as a _singleton_.
+Singletons may also improve performance by loading reusable data that would otherwise be time consuming to store and reload each time it is needed.
+
+[source,java]
+.HayStorage.java
+----
+public class HayStorage {
+    private int quantity = 0;
+    private HayStorage() {}
+
+    private static final HayStorage instance = new HayStorage();
+
+    public static HayStorage getInstance() {
+        return instance;
+    }
+
+    public synchronized void addHay(int amount) {
+        quantity += amount;
+    }
+
+    public synchronized boolean removeHay(int amount) {
+        if(quantity < amount) return false;
+        quantity -= amount;
+        return true;
+    }
+
+    public synchronized int getHayQuantity() {
+        return quantity;
+    }
+}
+----
+
+Singletons in Java are created as `private static` variables within the class, often with the name `instance`.
+They are accessed via a single `public static` method, often named `getInstance()`, which returns the reference to the singleton object.
+Finally, all constructors in singleton class are marked `private`, which ensures that no other class is capable of instantiating another version of the class.
+
+By marking the constructors `private`, we have implicitly marked the class `final`.
+Recall that every class requires at least one constructor, with the default no-argument constructor being added if none are provided.
+Furthermore, the first line of any constructor is a call to a parent constructor with the `super()` command.
+If all constructors are declared `private` in the singleton class, then it is impossible to create a subclass with a valid constructor; therefore, the singleton class is effectively `final`.
+
+NOTE: `synchronized` keyword used to prevent two processes from running the same method at the exact same time.
+
+[source,java]
+.LlamaTrainer.java
+----
+public class LlamaTrainer {
+    public boolean feedLlamas(itn numberOfLlamas) {
+        int amountNeeded = 5 * numberOfLlamas;
+        HayStorage hayStorage = HayStorage.getInstance();
+        if(hayStorage.getHayQuantity() < amountNeeded) {
+            hayStorage.addHay(amountNeeded + 10);
+        }
+        boolean fed = hayStorage.removeHay(amountNeeded);
+        if(fed) System.out.println("Llamas have been fed");
+        return fed;
+    }
+}
+----
+
+In our first `HayStorage` example, we instantiated the singleton object directly in the definition of the instance reference.
+We can also instantiate a singleton in two other ways.
+The following example creates a singleton using a `static` initialization block when the class is loaded.
+
+[source,java]
+.StaffRegister.java
+----
+public class StaffRegister {
+    private static final StaffRegister instance;
+
+    static {
+        instance = new StaffRegister();
+        // Perform additional steps
+    }
+
+    private StaffRegister() { }
+
+    public static StaffRegister getInstance() {
+        return instance;
+    }
+
+    // Data access methods
+    // ...
+}
+----
+
+Both the `StaffRegister` class and our previous `HayStorage` class instantiate the singleton at the time the class is loaded.
+Unlike the `HayStorage` class, though, the `StaffRegister` class instantiates the singleton as part of a `static` initialization block.
+Conceptually, these two implementations are equivalent, since both create the singleton when the class is loaded, althought the `static` initialization block allows additional steps to be taken to set up the sşngleton after it has been created.
+It also allows us to ahndle cases in which the `StaffRegister` constructor throws an exception.
+Since the singleton is created when the class is loaded, we are able to mark the reference `final`, which guarantees only one instance will be created within our application.
+
+Singletons are used in situations where we need access to a single set of data throughout on application.
+For example, application configuration data and reusable data caches are commonly implemented using singletons.
+Singletons may also be used to coordinate access to shared resources, such as coordinating write access to a file.
+
+===== Applying Lazy Instantiation to Singletons
+
+Another technique is to delay creation of the singleton until the first time the `getInstance` method is called:
+
+[source,java]
+.VisitorTicketTracker.java
+----
+public class VisitorTicketTracker {
+    private static VisitorTicketTracker instance;
+    private VisitorTickedTracker() {}
+
+    public static VisitorTicketTracker getInstance() {
+        if(instance == null) {
+            instance = new VisitorTicketTracker(); // NOT THREAD-SAFE!
+        }
+        return instance;
+    }
+
+    // Data access methods
+    // ...
+}
+----
+
+The `VisitorTicketTracker`, does not create the singleton object when the class is loaded but rather the first time it is requested by a client.
+Creating a reusable object the first time it is requested is a software design pattern known as _lazy instantiation_.
+It used often in conjunction with the singleton pattern.
+
+WARNING: When you get to writing applications that run across multiple computers, the `static` singleton solution starts to require special consideration, as each computer would have its own JVM. {empty} +
+In those situations, you might still use the singleton pattern, although it might be implemented with a database or queue server rather than as a `static` object.
+
+===== Create Unique Singletons
+
+To truly implement the singleton pattern, we must ensure that only one instance of the singleton ever created.
+Marking the constructor `private` is a good first step as it prevents the singleton from being created by other classes, but we also need to ensure that the object is only created once within the singleton class itself.
+We guaranteed this in the `HayStorage` and `StaffRegister` classes by using the `final` modifier on the static reference.
+
+Unfortunately, because we used lazy instantiation in the `VisitorTicketTracker` class,the compiler won't let us assign the `final` modifier to the `static` reference.
+The implementation of `VisitorTicketTracker`, as shown, is not considered thread-safe in that two threads could call getInstance() at the same time, resulting in two objects being created.
+After both threads finish executing, only one object will be set and used by other threads going forward, but the object that the two initial threads received may not be same.
+
+_Thread safety_ is the proeprty of an object that guarantees safe execution ny multiple threads at the same time.
+Simple solution that is compatible with lazy instantiation using yhe `synchronized` modifier.
+
+[source,java]
+----
+public static synchronized VisitorTicketTracker getInstance() {
+    if(instance == null) {
+        instance = new VisitorTicketTracker(); // NOT THREAD-SAFE!
+    }
+    return instance;
+}
+----
+
+{empty} +
+
+The `getInstance()` method is now synchronized, which means only one thread will be allowed in the method at the time, ensuring that only one object is created.
+
+===== Singletons with Double-Checked Locking
+
+The `synchronized` implementation of `getInstance`, while correctly preventing multiple singleton objects from being created, has the problem that every single class call to this method will require synchronization.
+In practice, this can be costly and can impact performance.
+Synchronization is only needed the first time that object is created.
+
+The solution is to use double-checked locking, a design pattern in which we first test if synchronization is needed before actually acquiring any locks.
+The following is an example rewrite of this method using double-checked locking:
+
+[source,java]
+----
+private static volatile VisitorTicketTracker instance;
+
+public static VisitorTicketTracker getInstance() {
+    if(instance == null) {
+        synchronized(VisitorTicketTracker.class) {
+            if(instance == null) {
+                instance = new VisitorTicketTracker();
+            }
+        }
+    }
+    return instance;
+}
+----
+
+===== Bill Pugh Singleton Implementation
+
+A Bill Pugh Singleton uses inner classes and does not use any synchronization construct.
+It uses static blocks, but in a different way — and suggests using static inner classes.
+
+[source,java]
+----
+public class BillPughSingleton {
+    private BillPughSingleton(){}
+
+    private static class SingletonHelper {
+        private static final BillPughSingleton INSTANCE = new BillPughSingleton();
+    }
+
+    public static BillPughSingleton getInstance(){
+        return SingletonHelper.INSTANCE;
+    }
+}
+----
+
+Notice the private inner static class that contains the instance of the singleton class.
+When the singleton class is loaded, `SingletonHelper` class is not loaded into memory and only when someone calls the getInstance method, this class gets loaded and creates the Singleton class instance.
+
+IMPORTANT: Reflection can be used to destroy all the above singleton implementation approaches
+
+===== Enum Singleton
+
+To overcome this situation with Reflection, Joshua Bloch suggests the use of Enum to implement Singleton design pattern as Java ensures that any enum value is instantiated only once in a Java program.
+The drawback is that the enum type is somewhat inflexible; for example, it does not allow lazy initialization.
+
+[source,java]
+----
+public enum EnumSingleton {
+    INSTANCE
+}
+----
+
+==== Create Immutable Objects
+
+*Problem* How do we create read-only objects that can be shared and used by multiple classes?
+
+*Motivation* Sometimes we want to create simple objects that can be shared across multiple classes, but for security reasons we don't want their value to be modified.
+We could copy the object before sending it to another method, bu this creates a large overhead that duplicates the object every time it is passed.
+Furthermore, if we have multiple threads accessing the same object, we could run into concurrency issues.
+
+*Solution* _The immutable object pattern_ is a creational pattern based on the idea of creating object whose state does not change after they are created and can be easily shared multiple classes.
+Immutable objects go hand and hand with encapsulation, except that no setter methods exist that modify the object.
+Since the state of an immutable object never changes, they are inherently thread-safe.
+
+===== Applying an Immutable Strategy
+
+1. Use a constructor to set all properties of object.
+2. Mark all of the instance variables `private` and `final`.
+3. Don't define any setter methods.
+4. Don't allow referenced mutable objects to be modified or accessed directly.
+5. Prevent methods from being overridden.
+
+The fourth rule requires a little more explanation.
+Let's say that you have immutable `Animal` object, which contains a reference to a `List` of the animal's favorite foods, as shown in the following example.
+
+[source,java]
+.Animal.java
+----
+import java.util.ArrayList;
+
+public final class Animal {
+    private final List<String> favoriteFoods;
+
+    public Animal(List<String> favoriteFoods) {
+        if(favoriteFoods == null) {
+            throw new RuntimeException("favoriteFoods is required");
+        }
+        this.favoriteFoods = new ArrayList<String>(favoriteFoods);
+    }
+
+    public List<String> getFavoriteFoods() { // MAKE CLASS MUTABLE!
+        return favoriteFoods;
+    }
+}
+----
+
+==== Using the Builder Pattern
+
+==== Creating Objects with the Factory Pattern
 
