@@ -1,2 +1,0 @@
-[[chapter-6]]
-== Exceptions and Assertions

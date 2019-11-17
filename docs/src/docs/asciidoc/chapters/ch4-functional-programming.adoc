@@ -1,2 +1,0 @@
-[[chapter-4]]
-== Functional Programming
