@@ -1,2 +1,478 @@
 [[chapter-2]]
 == Design Patterns and Principles
+
+=== Designing an Interface
+
+An interface is an abstract data type, similar to a class that defines a list of `public` abstract methods that any class implementing the interface must provide.
+An interface may also include constant `public static final` variables, `default` methods, and `static` methods.
+
+[source,java]
+----
+public interface Fly {
+    public int getWingSpan() throws Exception;
+    public static final int MAX_SPEED = 100;
+
+    public default void land() {
+        System.out.println("Animal is landing");
+    }
+    public static double calculateSpeed(float distance, double time) {
+        return distance/time;
+    }
+}
+
+public class Eagle implements Fly {
+    public int getWingSpan() {
+        return 15;
+    }
+    public void land() {
+        System.out.println("Eagle is diving fast");
+    }
+}
+----
+
+The first method of the interface, `getWingSpan()` declares an exception in the interface.
+Due to the rules of method overriding, this does not require the exception to be declared in the overridden method in the Eagle class.
+The second declaration, `MAX_SPEED`, is a constant `static` variable available anywhere within out application.
+The next method, `land()` is a `default` method that has been optionally overridden in the Eagle class.
+Finally, the method `calculateSpeed()` is `static` member and, like `MAX_SPEED`, it is available without an instance of the interface.
+
+An interface may extend another interface, and in doing so it inherits all of the abstract methods.
+
+[source,java]
+----
+public interface Walk {
+    boolean isQuadruped();
+    abstract double getMaxSpeed();
+}
+
+public interface Run extends Walk {
+    public abstract boolean canHuntWhileRunning();
+    abstract double getMaxSpeed();
+}
+
+public class Lion implements Run {
+    public boolean isQuadruped() {
+        return true;
+    }
+    public boolean canHuntWhileRunning() {
+        return true;
+    }
+    public double getMaxSpeed() {
+        return 100;
+    }
+}
+----
+
+The compiler automatically adds `public` to all interface methods and `abstract` to all non-static and non-default methods, if developer does not provide them.
+By contrast, the class implementing the interface must provide the proper modifiers.
+For example, the code would not compile if `getMaxSpeed()` was not marked `public` in the `Lion` class.
+As shown in this example with `getMaxSpeed()`, interface method definitions may be duplicated in a child interface without issue.
+
+An interface cannot extend a class, nor can class extend an interface (Lion is a class, Walk is an interface).
+
+[source,java]
+----
+public interface Sleep extends Lion {} // DOES NOT COMPILE
+
+public class Tiger extends Walk {}     // DOES NOT COMPILE
+----
+
+Interfaces also serve to provide limited support for multiple inheritance within the Java language, as a class may implement multiple interfaces, such as in the following example:
+
+[source,java]
+----
+public interface Swim {}
+
+public interface Hop {}
+
+public class Frog implements Swim, Hop {}
+----
+
+In this example, the Frog class implements both the Swim and Hop interfaces.
+An instance of Frog may be passed to any method that accepts `Swim`, `Hop`, `Frog`, or `java.lang.Object` as an input parameter.
+You can also construct interfaces that have neither methods nor class members, traditionally referred to as an marker interfaces. `java.io.Serializable` is an example of a marker interface.
+
+Interfaces cannot extend classes, nor can classes extend interfaces.
+Interfaces may also not to be marked `final` or instantiated directly.
+Java failing to compile if a class or interface inherits two `default` methods with the same signature and doesn't provide its own implementation.
+
+=== Introducing Functional Programming
+
+Java defines a _functional interface_ as an interface that contains a single abstract method.
+Functional interfaces are used as the basis for lambda expressions in functional programming.
+A _lambda expressions_ is a block of code that gets passed around, like an anonymous method.
+
+==== Defining a Functional Interface
+
+[source,java]
+----
+@FunctionalInterface
+public interface Sprint {
+    public void sprint(Animal animal);
+}
+
+public class Tiger implements Sprint {
+    public void sprint(Animal animal) {
+        System.out.println("Animal is sprinting fast! " + animal.toString());
+    }
+}
+----
+
+In this example, the Sprint is a functional interface, because it contains exactly one abstract method, and the Tiger class is valid class that implements the interface.
+
+It is a good practice to mark a functional interface with the `@FunctionalInterface` annotation for clarity, it is not required with functional programming.
+The Java compiler implicitly assumes that any interface that contains exactly one abstract method is a functional interface.
+Conversely, if a class marked with `@FunctionalInterface` annotation contains more than one abstract method, or no abstract methods at all, then the compiler will detect this error and not compile.
+
+Therefore, it is recommended that you explicitly mark the interface with the `@FunctionalInterface` annotation so that other developers know which interfaces they can safely apply lambdas to without the possibility that they may stop being functional interfaces down the road.
+
+Which ones would also be functional interfaces?
+
+[source,java]
+----
+public interface Run extends Sprint {}          // Functional Interface
+
+public interface SpringFaster extends Sprint {  // Functional Interface
+    public void sprint(Animal animal);
+}
+
+public interface Skip extends Sprint {          // Functional Interface
+    public default int getHopCount(Kangaroo kangaroo) { return 10; }
+    public static void skip(int speed) {}
+}
+----
+
+They are valid functional interfaces.
+All there are contains single abstract method.
+
+[source,java]
+----
+public interface Walk {}                // NOT FUNCTIONAL INTERFACE
+
+public interface Dance extends Sprint { // NOT FUNCTIONAL INTERFACE
+    public void dance(Animal animal);
+}
+
+public interface Crawl {                // NOT FUNCTIONAL INTERFACE
+    public void crawl();
+    public int getCount();
+}
+----
+
+The Walk, Dance and Crawl interfaces are compile but none of them are considered functional interfaces.
+Applying the `@FunctionalInterface` annotation to this interfaces would result in a compiler error, as would attempting to use them implicitly as functional interfaces in a lambda expresion.
+
+==== Implementing Functional Interfaces with Lambdas
+
+Now that we have defined a functional interface, we'll show you how to implement them using lambda expression.
+
+[source,java]
+.Animal.java
+----
+public class Animal {
+    private String species;
+    private boolean canHop;
+    private boolean canSwim;
+
+    public Animal(String speciesName, boolean hopper, boolean swimmer) {
+        species = speciesName;
+        canHop = hopper;
+        canSwim = swimmer;
+    }
+
+    public boolean canHop() {
+        return canHop;
+    }
+    public boolean canSwim() {
+        return canSwim;
+    }
+    public String toString() {
+        return species;
+    }
+}
+----
+
+[source,java]
+.CheckTrait.java
+----
+public interface CheckTrait {
+    public boolean test(Animal a);
+}
+----
+
+[source,java]
+.FindMatchingAnimals.java
+----
+public class FindMatchingAnimals {
+    private static void print(Animal animal, CheckTrait trait) {
+        if(trait.test(animal))
+            System.out.println(animal);
+    }
+
+    public static void main(String[] args) {
+        print(new Animal("fish", false, true), a -> a.canHop());
+        print(new Animal("kangaroo", true, false), a -> a.canHop());
+    }
+}
+----
+
+The lambda expression chosen for this program is quite simple {empty} +
+`a -> a.canHop();`
+
+We are passing this lambda as the second parameter of the `print()` method.
+That method expects a `CheckTrait` as the second parameter.
+Since we are passing a lambda instead, Java treats CheckTrait as a functional interface and tries to map it to the single abstract method: {empty} +
+`boolean test(Animal a);`
+
+Since this interface's method takes an Animal, it means the lambda parameter has to be an Animal.
+And since that interface's method returns a boolean, we know that the lambda returns a boolean.
+
+==== Understanding Lambda Syntax
+
+The syntax of lambda expression is tricky because many parts are optional.
+These two lines equivalent and do the exact same thing.
+
+[source]
+----
+a -> a.canHop()
+
+(Animal a) -> { return a.canHop(); }
+----
+
+The left side of the arrow operator `->` indicates the input parameters for the lambda expression.
+It can be consumed by a functional interface whose abstract method has the same number of parameters and compatible data types.
+The right side is referred as the body of the lambda expression.
+It can be consumed by functional interface whose abstract method returns a compatible data type.
+
+The parentheses `()` can be omitted in a lambda expression if there is exactly one input parameter and the type is not explicitly stated in the expression.
+For example, the following are all valid lambda expressions, assumes that there are valid functional interfaces that can consume them:
+
+[source,java]
+----
+() -> new Duck()
+
+d -> {return d.quack;}
+
+(Duck d) -> d.quack()
+
+(Animal a, Duck d) -> d.quack()
+----
+
+==== Spotting Invalid Lambdas
+
+The parenthesis can be omitted only if there is exactly one parameter and the data type is not specified.
+
+[source,java]
+----
+Duck d -> d.quack()           // DOES NOT COMPILE
+a,d -> d.quack()              // DOES NOT COMPILE
+Animal a, Duck d -> d.quack() // DOES NOT COMPILE
+----
+
+Pair of statement braces `{}` around the body of the lambda expresion allows you to write multiple line of code in the body of the lambda expression.
+When you add braces `{}`, you must explicitly terminate each statement in the body with a semicolon `;`.
+And you must use the return statement if the functional interface method that lambda implements returns a value.
+Alternatively, a return statement is optional when the return type of the method is `void`.
+For single-line lambda bodies we were able to omit the braces `{}`, semi-colon `;` and `return` statement.
+
+[source,java]
+----
+() -> true
+a -> {return a.startsWith("test");}
+a -> a.startsWith("test")
+(int x) -> {}
+(int y) -> {return;}
+----
+
+There is no rule that says the lambda expression must use them all of the input parameters.
+These examples both take two parameters and ignore one of them.
+
+[source,java]
+----
+(a, b) -> a.startsWith("test")
+(String a, String b) -> a.startsWith("test")
+----
+
+Let's review some additional lambda expressions to see how your grasp of lambda syntax is processing.
+Do you see what's wrong with each of these lambda expression.
+
+[source,java]
+----
+a, b -> a.startsWith("test")         // DOES NOT COMPILE (Parenthesis required around parameter list)
+c -> return 10;                      // DOES NOT COMPILE (Braces required because of return keyword)
+a -> { return a.startsWith("test") } // DOES NOT COMPILE (Semicolon required after the return statement)
+----
+
+The data types for the input parameters of a lambda expression are optional.
+When one parameter has a data type listed, though, all parameters must provide a data type.
+
+[source,java]
+----
+(int y, z) -> {int x; return y+10;}       // DOES NOT COMPILE
+(String s, z) -> { return s.length()+z; } // DOES NOT COMPILE
+(a, Animal b, c) -> a.getName             // DOES NOT COMPILE
+----
+
+Java doesn't allow us to re-declare a local variable.
+
+[source,java]
+----
+(a, b) -> { int a = 0; return 5; } // DOES NOT COMPILE
+(a, b) -> { int c = 0; return 5; } // Compiles
+----
+
+==== Applying the Predicate Interface
+
+[source,java]
+----
+public interface Predicate<T> {
+    boolean test(T t);
+}
+----
+
+[source,java]
+.FindMatchingAnimals.java
+----
+import java.util.function.Predicate;
+
+public class FindMatchingAnimals {
+    private static void print(Animal animal, Predicate<Animal> trait) {
+        if(trait.test(animal))
+            System.out.println(animal);
+    }
+
+    public static void main(String[] args) {
+        print(new Animal("fish", false, true), a -> a.canHop());
+        print(new Animal("kangaroo", true, false), a -> a.canHop());
+    }
+}
+----
+
+=== Implementing Polymorphism
+
+_Polymorphism_ is the ability of a single interface to support multiple underlying forms.
+In Java, this allows multiple types of objects to be passed to a single method or class.
+
+[source,java]
+----
+public interface LivesInOcean { public void makeSound();}
+
+public class Dolphin implements LivesInOcean {
+    public void makeSound() { System.out.println("whistle"); }
+}
+
+public class Whale implements LivesInOcean {
+    public void makeSound() { System.out.println("sing"); }
+}
+
+public class Oceanographer implements LivesInOcean {
+    public void checkSound(LivesInOcean animal) { animal.makeSound(); }
+
+    public static void main() {
+        Oceanographer o = new Oceanographer();
+        o.checkSound(new Dolphin());
+        o.checkSound(new Whale());
+    }
+}
+----
+
+This code compiles and executes without issue and yields the following output.
+
+whistle {empty} +
+sing
+
+In this sample code, our `Oceanographer` class includes a method named `checkSound()` that is capable of accepting any object whose class implements `LivesInOcean` interface.
+
+Polymorphism also allows one object to take on many different forms.
+The following example illustrates this polymorphic property.
+
+[source,java]
+----
+public class Primate {
+    public boolean hasHair() {
+        return true;
+    }
+}
+
+public interface HasTail {
+    public boolean isTailStriped();
+}
+
+public class Lemur extends Primate implements HasTail {
+    public int age = 10;
+
+    public boolean isTailStriped() {
+        return false;
+    }
+
+    public static void main(String[] args){
+      Lemur lemur = new Lemur();
+      System.out.println(lemur.age);
+
+      HasTail hasTail = lemur;
+      System.out.println(hasTail.isTailStriped());
+
+      Primate primate = lemur;
+      System.out.println(primate.hasHair());
+    }
+}
+----
+
+This code compiles and executes without issue and yields the following output.
+
+10 {empty} +
+false {empty} +
+true
+
+The most important thing to note about this example is that only one object, `Lemur`, is created and referenced.
+The ability of the `Lemur` object to be passed as an instance of an interface it implements, `HasTail`, as well as an instance of one of its superclass, `Primate`, is the nature of polymorphism.
+
+If you use a variable to refer to an object, then only methods or variables that are part of the variable's reference type can be called without an explicit cast.
+
+[source,java]
+----
+HasTail hasTail = lemur;
+System.out.println(hasTail.age); // DOES NOT COMPILE
+
+Primate primate = lemur;
+System.out.println(primate.isTailStriped()); // DOES NOT COMPILE
+----
+
+==== Distinguished between an Object and a Reference
+
+1. The type of the object determines which properties exist within the object in memory.
+2. The type of references to the object determines which methods and variables are accessible to the Java program.
+
+==== Casting Object References
+
+Here are some basic rules to keep in mind when casting variables.
+
+1. Casting an object from a subclass to a superclass doesn't require an explicit cast.
+2. Casting an object from superclass to a subclass requires an explicit cast.
+3. The compiler will not allow casts to unrelated types.
++
+[source,java]
+----
+public class Bird {}
+
+public class Fish {
+    public static void main(String[] args){
+      Fish fish = new Fish();
+      Bird bird = (Bird) fish; // DOES NOT COMPILE
+    }
+}
+----
+4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.
++
+[source,java]
+----
+public class Rodent {}
+
+public class Capybara extends Rodent {
+    public static void main(String[] args){
+      Rodent rodent = new Rodent();
+      Capybara capybara = (Capybara) rodent; // Throws ClassCastException at runtime
+    }
+}
+----
+
