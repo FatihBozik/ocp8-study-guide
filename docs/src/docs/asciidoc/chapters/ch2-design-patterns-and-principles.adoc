@@ -476,3 +476,169 @@ public class Capybara extends Rodent {
 }
 ----
 
+=== Understanding Design Principles
+
+A _design principle_ is an established idea or best practice that facilitates the software design process.
+In general, following good design principles leads to
+
+* More logical code,
+* Code that is easier to understand
+* Classes that are easier to reuse in other relationships and applications.
+* Code that is easier to maintain and that adapts more readily to changes in the application requirements.
+
+==== Encapsulating Data
+
+In software development, _encapsulation_ is the idea of combining fields and methods in a class such that the methods operate on the data, as opposed to the users of the class accessing the fields directly.
+In Java, it is commonly implemented with `private` instance members that have `public` methods to retrieve or modify the data, commonly referred to as getters and setters, respectively.
+
+Imagine that we are designing a new `Animal` class, and we have the following design requirements:
+
+* Each animal has a `non-null`, not empty `species` field.
+* Each animal has an `age` field that is greater than or equal to zero
+
+[source,java]
+----
+public class Animal {
+    private String species;
+    private int age;
+
+    public Animal(String species) {
+        this.setSpecies(species);
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        if(species == null || species.trim().length() == 0) {
+            throw new IllegalArgumentException("Species is required");
+        }
+        this.species = species;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if(age < 0) {
+            throw new IllegalArgumentException("Age cannot be a negative number");
+        }
+        this.age = age;
+    }
+}
+----
+
+==== Creating JavaBeans
+
+Encapsulation is so prevalent in Java that there is a standart for creating classes that store data, called JavaBeans.
+A _JavaBean_ is a design principle for encapsulating data in an object in Java.
+
+.JavaBean naming conventions
+[stripes=even,cols="3d, 4a",width="80%",options="header"]
+|===
+|Rule |Example
+
+|Properties are private.
+|[source,java]
+----
+private int age;
+----
+
+|Getters for `non-boolean` properties begins with `get`.
+|[source,java]
+----
+private int getAge() {
+  return age;
+}
+----
+
+|Getters for `boolean` properties may begin `is` or `get`.
+|[source,java]
+----
+public boolean isBird() {
+  return bird;
+}
+
+public boolean getBird() {
+  return bird;
+}
+----
+
+|Setter methods begin with `set`.
+|[source,java]
+----
+public void setAge(int age) {
+  this.age = age;
+}
+----
+
+|The method name must have a prefix of `set/get/is` followed by the first letter of the property in uppercase and followed by the rest of the property name.
+|[source,java]
+----
+public void setNumChildren(int numChildren) {
+  this.numChildren = numChildren;
+}
+----
+|===
+
+Although `boolean` values use `is` to start their getter method, the same does not apply to instances of the wrapper `Boolean` class, which use `get`.
+
+==== Applying the Is-a Relationship
+
+In object-oriented design, we describe the property of an object being an instance of a data type as having an `is-a-relationship`.
+The is-a-relationship is also known as the inheritance test.
+
+The fundamental result of the is-a principle is that if A is-a B, then any instance of A can be treated like an instance of B. This holds true for a child that is a subclass of any parent, be it a direct subclass or a distant child.
+
+==== Applying the Has-a Relationship
+
+In object-oriented design, we often want tı test whether an object contains a particular property or value.
+We refer to the `has-a-relationship` as the property of an object having a named data object or primitive as a member.
+The has-a relationship is also known as the object composition test.
+
+==== Composing Objects
+
+In object-oriented design, we refer to `object composition` as the property of constructing a class using references to other classes in order to reuse the functionality of the other classes.
+In particular, the class contains the other classes in the has-a sense and may delegate methods to other classes.
+
+Object composition should be thought of as an alternate to inheritance and is often used to simulate polymorphic behaviour that cannot be achieved via single inheritance.
+
+[source,java]
+----
+public class Flippers {
+    public void flap() {
+        System.out.println("The flippers flap back and forth");
+    }
+}
+
+public class WebbedFeet {
+    public void kick() {
+        System.out.println("The webbed feet kick to and fro");
+    }
+}
+
+public class Penguin {
+    private final Flippers flippers;
+    private final WebbedFeet webbedFeet;
+
+    public Penguin() {
+        this.flippers = new Flippers();
+        this.webbedFeet = new WebbedFeet();
+    }
+
+    public void flap() {
+        this.flippers.flap();
+    }
+
+    public void kick() {
+        this.webbedFeet.kick();
+    }
+}
+----
+
+One of the advantages of object composition over inheritance is that it tends to promote greater code reuse.
+By using composition, you gain access to other classes and methods that would be difficult to obtain via Java's single-inheritance model.
+
+
