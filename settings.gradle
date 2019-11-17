@@ -2,6 +2,7 @@ rootProject.name = 'ocp8-study-guide'
 
 include 'advanced-class-design'
 include 'design-patterns-and-principles'
+include 'docs'
 include 'generics-and-collections'
 include 'functional-programming'
 include 'dates-strings-and-localization'
