@@ -11,5 +11,7 @@ build
 # Java
 *.class
 
+!docs/resources/images/logo.svg
+
 # Miscellaneous
 .DS_Store

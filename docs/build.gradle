@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.6.1'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-beta.2'
     }
 }
 
@@ -19,10 +20,23 @@ asciidoctorj {
 }
 
 asciidoctor {
-    backends 'html5'
+    backends 'html5', 'pdf'
+    setRequires('./src/docs/resources/styles/github_light.rb')
     sources {
         include 'index.adoc'
     }
+    options doctype: 'book'
+    attributes = [
+            'revnumber'         : project.version,
+            'imagesdir'         : '../resources/images',
+            'pdf-stylesdir'     : '../resources/styles',
+            'pdf-fontsdir'      : '../resources/fonts',
+            'pdf-style'         : 'ocp',
+            'icons'             : 'font',
+            'source-highlighter': 'rouge',
+            'rouge-style'       : 'github_light',
+            'sourcedir'         : 'src/docs/asciidoc'
+    ]
 }
 
 gitPublish {
