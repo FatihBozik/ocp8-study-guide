@@ -1,2 +1,155 @@
 [[chapter-3]]
 == Generics and Collections
+
+The _Java Collections Framework_ includes classes that implements `List`, `Map`, `Queue` and `Set`.
+An array (such as `int[]`) is not part of the Collections Framework.
+
+=== Array and _ArrayList_
+
+An _ArrayList_ is an object that contains other objects.
+An `ArrayList` cannot contain primitives.
+An array is a built-in data structure that contains other objects or primitives.
+
+[source,java]
+----
+List<String> list = new ArrayList<>();    // empty list
+list.add("Fluffy");                       // [Fluffy]
+list.add("Webby");                        // [Fluffy, Webby]
+
+String[] array = new String[list.size()]; // empty array
+array[0] = list.get(1);                   // [Webby]
+array[1] = list.get(0);                   // [Webby, Fluffy]
+for(int i = 0; i < array.length; i++) {
+ System.out.println(array[i], "-");       // prints Webby-Fluffy-
+}
+----
+
+[source,java]
+.Converting between an array and ArrayList
+----
+String[] array = {"gerbil", "mouse"};         // [gerbil, mouse]
+List<String> list = Arrays.asList(array);     // returns fixed size list
+list.set(1, "test");                          // [gerbil, test]
+array[0] = "new";                             // [new, test]
+String[] array2 = (String[]) list.toArray();  // [new, test]
+list.remove(1);                               // throws UnsupportedOperationException
+----
+
+=== Searching and Sorting
+
+[source,java]
+----
+int[] numbers = {6, 9, 1, 8};                        // [6, 9, 1, 8]
+Arrays.sort(numbers);                                // [1, 6, 8, 9]
+System.out.println(Arrays.binarySearch(numbers, 6)); // 1
+System.out.println(Arrays.binarySearch(numbers, 3)); // -2
+----
+
+Sorts the array because binary search assumes the input is sorted.
+binarySearch method doesn't match, prints one less than the negated index of where the requested value would to be inserted.
+The number 3 would need to be inserted at index 1 (after the number 1 but before the number 6).
+Negating that gives us -1 and subtracting 1 gives us -2
+
+Let's try that again with a List.
+
+[source,java]
+----
+List<Integer> list = Arrays.asList(9, 7, 5, 3);        // [9, 7, 5, 3]
+Collections.sort(list);                                // [3, 5, 7, 9]
+System.out.println(Collections.binarySearch(list, 3)); // 0
+System.out.println(Collections.binarySearch(list, 2)); // -1
+----
+
+NOTE: We call `sort()` and `binarySearch()` on `Collections` rather than `Collection`.
+In the past, Collection could not have concrete methods because it is an interface.
+Some were added in Java 8. We will explore these Chapter 4, "Functional Programming".
+
+=== Wrapper Classes and Autoboxing
+
+Each primitive has a corresponding wrapper class.
+_Autoboxing_ automatically converts a primitive to the corresponding wrapper classes when needed if the generic type is specified in the declaration.
+_Unboxing_ automatically converts a wrapper class back to a primitive.
+
+[stripes=even,width="60%",cols="1, 1, 2a",options=header]
+|===
+|Primitive type |Wrapper class |Example of initializing
+
+|boolean
+|Boolean
+|[source,java]
+----
+new Boolean(true)
+----
+
+|byte
+|Byte
+|[source,java]
+----
+new Byte((byte) 1)
+----
+
+|short
+|Short
+|[source,java]
+----
+new Short((short) 1)
+----
+
+|int
+|Integer
+|[source,java]
+----
+new Integer(1)
+----
+
+|long
+|Long
+|[source,java]
+----
+new Long(1)
+----
+
+|float
+|Float
+|[source,java]
+----
+new Float(1.0)
+----
+
+|double
+|Double
+|[source,java]
+----
+new Double(1.0)
+----
+
+|char
+|Character
+|[source,java]
+----
+new Character('c')
+----
+|===
+
+[source,java]
+----
+List<Integer> numbers = new ArrayList<Integer>();
+numbers.add(1);
+numbers.add(new Integer(3));
+numbers.add(new Integer(5));
+numbers.remove(1);
+numbers.remove(new Integer(5));
+System.out.println(numbers); // [1]
+----
+
+Java also converts the wrapper classes to primitives via unboxing.
+
+[source,java]
+----
+int num = numbers.get(0);
+----
+
+
+
+
+
