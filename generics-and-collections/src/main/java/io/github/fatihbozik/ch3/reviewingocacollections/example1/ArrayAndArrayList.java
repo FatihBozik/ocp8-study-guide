@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch3.arrayandarraylist.example1;
+package io.github.fatihbozik.ch3.reviewingocacollections.example1;
 
 import java.util.ArrayList;
 import java.util.List;

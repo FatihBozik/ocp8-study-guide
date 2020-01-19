@@ -1,0 +1,87 @@
+[appendix]
+== Study Plans
+
+[stripes=even,cols="4d, 5a, 3, 3",options="header"]
+|===
+| Date | Task | Page Number | Page / Day
+
+| 13 January - 23 January
+| Read Chapter 3 Generics and Collections
+| 58 page [104, 161]
+| 58 / 11 = 5.27
+
+| 24 January - 26 January
+| Answer Chapter 3 Review Questions
+| -
+| -
+
+| 27 January - 06 February
+| Read Chapter 4 Functional Programming
+| 54 page [172, 225]
+| 54 / 11 = 4.90
+
+| 07 February - 09 February
+| Answer Chapter 4 Review Questions
+| -
+| -
+
+| 10 February - 20 February
+| Read Chapter 5 Dates, Strings and Localization
+| 42 page [234 - 275]
+| 42 / 11 = 3.81
+
+| 21 February - 23 February
+| Answer Chapter 5 Review Questions
+| -
+| -
+
+| 24 February - 05 March
+| Read Chapter 6 Exceptions and Assertions
+| 32 page [284 - 315]
+| 32 / 11 = 2.9
+
+| 06 March - 08 March
+| Answer Chapter 6 Review Questions
+| -
+| -
+
+| 09 March - 19 March
+| Read Chapter 7 Concurrency
+| 68 page [326, 393]
+| 68 / 11 = 6.18
+
+| 20 March - 21 March
+| Answer Chapter 7 Review Questions
+| -
+| -
+
+| 22 March - 01 April
+| Read Chapter 8 IO
+| 38 page [406, 443]
+| 38 / 11  = 3.45
+
+| 02 April - 03 April
+| Answer Chapter 8 Review Questions
+| -
+| -
+
+| 04 April - 14 April
+| Read Chapter 9 NIO-2
+| 43 page [454, 496]
+| 43 / 11 = 3.90
+
+| 15 April - 16 April
+| Answer Chapter 9 Review Questions
+| -
+| -
+
+| 17 April - 27 April
+| Read Chapter 10
+| 32 page [506, 537]
+| 32 / 11 = 2.90
+
+| 28 April - 29 April
+| Answer Chapter 10 Review Questions
+| -
+| -
+|===

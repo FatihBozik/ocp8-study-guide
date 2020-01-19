@@ -22,6 +22,4 @@ include::chapters/ch9-nio-2.adoc[NIO.2]
 
 include::chapters/ch10-jdbc.adoc[JDBC]
 
-
-
-
+include::appendix/a-study-plan.adoc[Appendix A]
