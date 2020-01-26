@@ -3,7 +3,7 @@ package io.github.fatihbozik.ch3.reviewingocacollections.example2;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class ListArrayConversion {
     public static void main(String[] args) {
         String[] array = {"gerbil", "mouse"};         // [gerbil, mouse]
         List<String> list = Arrays.asList(array);     // returns fixed size list
