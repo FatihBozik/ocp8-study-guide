@@ -47,3 +47,5 @@ gitPublish {
     }
     commitMessage = 'Publishing a new version'
 }
+
+build.dependsOn 'asciidoctor'
