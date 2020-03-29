@@ -21,6 +21,7 @@ font:
       italic: source-sans-pro/SourceSansPro-Italic.ttf
       bold_italic: source-sans-pro/SourceSansPro-BoldItalic.ttf
   fallbacks:
+    - M+ 1mn
     - M+ 1p Fallback
 page:
   background_color: ffffff
@@ -43,7 +44,7 @@ base:
   border_color: eeeeee
   border_radius: 4
   border_width: 0.5
-vertical_rhythm: $base_line_height_length
+vertical_rhythm: 10
 horizontal_rhythm: $base_line_height_length
 vertical_spacing: $vertical_rhythm
 link:
@@ -150,7 +151,7 @@ code:
   border_radius: 5
 conum:
   font_family: M+ 1mn
-  font_color: $literal_font_color
+  font_color: b12146
   font_size: $base_font_size
   line_height: 4 / 3
 example:
@@ -166,7 +167,7 @@ prose:
   margin_top: $block_margin_top
   margin_bottom: $block_margin_bottom
 sidebar:
-  background_color: b2dfdb
+  background_color: f3f3f2
   border_color: e1e1e1
   border_radius: $base_border_radius
   border_width: $base_border_width

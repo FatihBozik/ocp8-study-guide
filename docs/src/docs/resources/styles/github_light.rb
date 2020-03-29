@@ -52,8 +52,8 @@ module Rouge
       style Name::Attribute,                  :fg => '#000000'
       style Name::Builtin::Pseudo,            :fg => '#999999'
       style Name::Builtin,                    :fg => '#d73a49'
-      style Name::Class,                      :fg => '#6f42c1', :bold => false
-      style Name::Constant,                   :fg => '#005cc5'
+      style Name::Class,                      :fg => '#000000', :bold => false
+      style Name::Constant,                   :fg => '#000000'
       style Name::Decorator,                  :fg => '#d73a49', :bold => false
       style Name::Entity,                     :fg => '#6f42c1'
       style Name::Exception,                  :fg => '#990000', :bold => true
