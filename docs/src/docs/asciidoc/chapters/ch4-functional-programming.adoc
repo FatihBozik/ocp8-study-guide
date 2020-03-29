@@ -493,7 +493,7 @@ There are three parts to a stream pipeline:
 
 - _Source_: Where the stream comes from.
 - _Intermediate operations_: Transforms the stream into another one.
-There can be as few or as many intermediate operations as yo'd like.
+There can be as few or as many intermediate operations as you'd like.
 Since streams use lazy evaluation, the intermediate operations do not run util the terminal operation run.
 - _Terminal operation_: Actually produces a result.
 Since streams can be used only once, the stream is no longer valid after a terminal operation completes.
@@ -658,6 +658,6 @@ Optional<?> minEmpty = Stream.empty().min((s1, s2) -> 0);
 System.out.println(minEmpty.isPresent()); // false
 ----
 
-Since the stream is empty, the comparator is never called and no valıe is present in the `Optional`.
+Since the stream is empty, the comparator is never called and no value is present in the `Optional`.
 
 ===== _findAny()_ and _findFirst()_
