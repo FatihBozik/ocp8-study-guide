@@ -638,8 +638,8 @@ The method signatures are as follows:
 
 [source,java]
 ----
-Optional<T> min(<? super T> comparator);
-Optional<T> max(<? super T> comparator);
+Optional<T> min(Comparator<? super T> comparator);
+Optional<T> max(Comparator<? super T> comparator);
 ----
 
 [source,java]
@@ -840,7 +840,7 @@ Stream<Integer> threeElements = Stream.of(3, 5, 6);
 threeElements.reduce(multiplication).ifPresent(System.out::println); // 90
 ----
 
-The third method signatures is used when we are processing collections in parallel.
+The third method signature is used when we are processing collections in parallel.
 It allows Java to create immediate reductions and then combine them at the end.
 
 [source,java]
@@ -923,7 +923,216 @@ System.out.println(set); // [f, w, l, o]
 ----
 
 You might get different output for this last one since `toSet()` makes no guarantees as to which implementation of `Set` you'll get.
-It is likely to be a `HashSet`, but you should'nt expect or rely on that.
+It is likely to be a `HashSet`, but you shouldn't expect or rely on that.
 
 ==== Using Common Intermediate Operations
 
+Unlike a terminal operation, intermediate operations deal with infinite streams simply by returning an infinite stream.
+Since elements are produced only as needed, this works fine.
+
+===== _filter()_
+
+The `filter()` method returns a `Stream` with elements that match a given expression.
+Here is the method signature:
+
+[source,java]
+----
+Stream<T> filter(Predicate<? super T> predicate)
+----
+
+This operation is easy to remember and very powerful because we can pass any `Predicate` to it.
+For example, this filters all elements that begin with the letter _m_:
+
+[source,java]
+----
+Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
+s.filter(t -> t.startsWith("m")).forEach(System.out::println); // monkey
+----
+
+===== _distinct()_
+
+The `distinct()` method returns a stream with duplicate values removed.
+The duplicates do not need to be adjacent to be removed.
+As you might imagine, Java calls `equals()` to determine the objects are the same.
+The method signature is as follows:
+
+[source,java]
+----
+Stream<T> distinct()
+----
+
+Example:
+
+[source,java]
+----
+Stream<String> s = Stream.of("duck", "duck", "duck", "goose");
+s.distinct().forEach(System.out::print); // duckgoose
+----
+
+===== _limit()_ and _skip()_
+
+The `limit()` and `skip()` methods make a `Stream` smaller.
+They could make a finite stream smaller, or they could male a finite stream out of an infinite stream.
+The method signatures are shown here:
+
+[source,java]
+----
+Stream<T> limit(int maxSize)
+
+Stream<T> skip(int n)
+----
+
+Example:
+
+The following code creates an infinite stream of numbers counting from 1. The skip operation returns an infinite stream starting with the numbers counting from 6i since it skips the first five elements.
+The `limit()` call takes the first two of those.
+
+[source,java]
+----
+Stream<Integer> s = Stream.iterate(1, n -> n + 1);
+s.skip(5).limit(2).forEach(System.out::print); // 67
+----
+
+===== _map()_
+
+The `map()` method creates a one-to-one mapping from the elements in the stream to the elements of the next step in the stream.
+The method signatıre is as follows:
+
+[source,java]
+----
+<R> Stream<R> map(Function<? super T, ? extends R> mapper)
+----
+
+NOTE: The `map()` method on streams is for transforming data.
+Don't confuse it with the `Map` interface, which maps keys to values.
+
+As an example, this code converts a list of `String` objects to a list of `Integer` representing their lengths:
+
+[source,java]
+----
+Stream<String> s = Stream.of("monkey", "gorilla", "bonobo");
+s.map(String::length).forEach(System.out::print); // 676
+----
+
+Remember that `String::length` is shorthand for the lambda `x -> x.length()`, which clearly shows it is a function that turns a `String` into an `Integer`.
+
+===== _flatMap()_
+
+The _flatMap()_ method takes each elements in the stream and makes any elements iy contains top-level elements in a single stream.
+This is helpful when you want to remove empty elements from a stream or you want to combine a stream of lists.
+
+[source,java]
+----
+<R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)
+----
+
+This gets all of the animals into the same level along with getting rid of the empty list:
+
+[source,java]
+----
+List<String> zero = Arrays.asList();
+List<String> one = Arrays.asList("Bonobo");
+List<String> two = Arrays.asList("Mama Gorilla", "Baby Gorilla");
+Stream<List<String>> animals = Stream.of(zero, one, two);
+
+animals.flatMap(l -> l.stream()).forEach(System.out::println);
+----
+
+Here's the output:
+
+Bonobo {empty} +
+Mama Gorilla {empty} +
+Baby Gorilla
+
+As you can see, it removed the empty list completely and changed all elements of each list to be at the top level of the stream.
+
+===== _sorted()_
+
+The `sorted()` method returns a stream with the elements sorted.
+Just like sorting arrays, Java uses natural ordering unless we specify a comparator.
+The method signatures are these:
+
+[source,java]
+----
+Stream<T> sorted()
+
+Stream<T> sorted(Comparator<? super T> comparator)
+----
+
+Calling the first signature uses the default sort order:
+
+[source,java]
+----
+Stream<String> s = Stream.of("brown-", "bear-");
+s.sorted().forEach(System.out::print); // bear-brown-
+----
+
+Remember that we can pass a lambda expression as the comparator.
+We can pass a `Comparator` implementation:
+
+[source,java]
+----
+Stream<String> s = Stream.of("brown bear-", "grizzly-");
+s.sorted(Comparator.reverseOrder()).forEach(System.out::print); // bear-brown-grizzly-brown bear-
+----
+
+Do you see why this doesn't compile?
+
+[source,java]
+----
+s.sorted(Comparator::reversedOrder); // DOES NOT COMPILE
+----
+
+The `Comparator` interface implements one method that takes two `String` parameters and returns an `int`.
+However, `Comparator::reverseOrder` doesn't do that.
+
+===== _peek()_
+
+The `peek()` method is useful for debugging because iy allows us to perform a stream operation without actually changing the stream.
+
+[source]
+----
+Stream<T> peek(Consumer<? super T> action)
+----
+
+[source,java]
+----
+Stream<String> stream = Stream.of("black bear", "brown bear", "grizzly");
+long count = stream.filter(e -> e.startsWith("g")).peek(System.out::println).count(); // grizzly
+System.out.println(count); // 1
+----
+
+NOTE: When working with a `Queue`, `peek()` looks only at the first element.
+In a stream, `peek()` looks at each element that goes though that part of the stream pipeline.
+It's like having a worker take notes on how a particular step of the process is doing.
+
+.Danger: Changing State with _peek()_
+****
+Remember that `peek()` is intended to perform an operation without changing the result.
+
+[source,java]
+----
+List<Integer> numbers = new ArrayList<>();
+List<Character> letters = new ArrayList<>();
+numbers.add(1);
+letters.add('a');
+StringBuilder builder = new StringBuilder();
+Stream<List<?>> good = Stream.of(numbers, letters);
+good.peek(l -> builder.append(l)).map(List::size).forEach(System.out::print); // 11
+System.out.println(builder); // [1][a]
+----
+
+In this example, you can see that `peek()` updates a `StringBuilder` variable that doesn't affect the result of the stream pipeline.
+It prints 11. Java doesn't prevent us from writing bad peek code.
+
+[source,java]
+----
+Stream<List<?>> bad = Stream.of(numbers, letters);
+bad.peek(l -> l.remove(0)).map(List::size).forEach(System.out::print); // 00
+----
+
+This example is bad because `peek()` is modifying the data structure that is used in the stream, which causes the result of the stream pipeline to be different than if the peek wasn't present.
+
+****
+
+==== Putting Together the Pipeline
