@@ -447,7 +447,7 @@ System.out.println(opt.get()); // throws java.util.NoSuchElementException: No va
 |Does nothing
 |Calls `Consumer c` with value
 
-|`ifPresent()`
+|`isPresent()`
 |Returns `false`
 |Returns `true`
 
