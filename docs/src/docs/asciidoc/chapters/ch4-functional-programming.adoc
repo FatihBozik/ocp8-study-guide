@@ -1088,7 +1088,7 @@ However, `Comparator::reverseOrder` doesn't do that.
 
 ===== _peek()_
 
-The `peek()` method is useful for debugging because iy allows us to perform a stream operation without actually changing the stream.
+The `peek()` method is useful for debugging because it allows us to perform a stream operation without actually changing the stream.
 
 [source]
 ----
