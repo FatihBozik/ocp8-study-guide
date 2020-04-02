@@ -1136,3 +1136,103 @@ This example is bad because `peek()` is modifying the data structure that is use
 ****
 
 ==== Putting Together the Pipeline
+
+Streams allow you to use chaining and express what you want to accomplish rather than how to do so.
+Let's say that we wanted to get the first two names alphabetically that are four characters long.
+
+.In Java 7
+[source,java]
+----
+List<String> list = Arrays.asList("Toby", "Anna", "Leroy", "Alex");
+List<String> filtered = new ArrayList<>();
+for (String name : list) {
+    if (name.length() == 4) filtered.add(name);
+}
+Collections.sort(filtered);
+Iterator<String> iter = filtered.iterator();
+if(iter.hasNext()) System.out.println(iter.next());
+if(iter.hasNext()) System.out.println(iter.next());
+----
+
+.Java 8 equivalent
+[source,java]
+----
+List<String> list = Arrays.asList("Toby", "Anna", "Leroy", "Alex");
+list.stream().filter(n -> n.length() == 4)
+              .sorted()
+              .limit(2)
+              .forEach(System.out::println);
+----
+
+The difference is that we express what is going on.
+We care about `String` objects of length 4. Then we want them sorted.
+Then we want to first two.
+Then we want to print them out.
+
+[source,java]
+----
+Stream.generate(() -> "Elsa")
+                .filter(n -> n.length() == 4)
+                .sorted()
+                .limit(2)
+                .forEach(System.out::println);
+----
+
+It actually hangs until you kill the program or it throws an exception after running out of memory.
+The foreman has instructed sorted() to wait until everything to sort is present.
+That never happens because there is an infinite stream.
+What about this example?
+
+[source,java]
+----
+Stream.generate(() -> "Elsa")
+                .filter(n -> n.length() == 4)
+                .limit(2)
+                .sorted()
+                .forEach(System.out::println);
+----
+
+This one prints `Elsa` twice.
+The filter lets elements through and `limit()` stops the earlier operations after two elements.
+Now `sorted()` can sort because we have a finite list.
+Finally, what do you think this does?
+
+[source,java]
+----
+Stream.generate(() -> "Olaf Lazisson")
+            .filter(n -> n.length() == 4)
+            .limit(2)
+            .sorted()
+            .forEach(System.out::println);
+----
+
+This one hangs as well until we kill the program.
+The filter doesn’t allow anything through, so `limit()` never sees two elements.
+
+==== Printing a Stream
+
+.How to print a stream
+[stripes=even,cols="4a, 1, 1",options="header"]
+|===
+|Option |Works for Infinite Streams? |Destructive to Stream?
+
+|`s.forEach(System.out::println);`
+|No
+|Yes
+
+|`System.out.println(s.collect(Collectors.toList()))`
+|No
+|Yes
+
+|s.peek(System.out::println).count();
+|No
+|No
+
+|s.limit(5).forEach(System.out::println)
+|Yes
+|Yes
+|===
+
+=== Working with Primitives
+
+
