@@ -1400,7 +1400,246 @@ The function returns an `int`.
 |===
 
 NOTE: You can also create a primitive stream from a Stream using `flatMapToInt()`, `flatMapToDouble()`, `flatMapToLong()`.
-      For example: {empty} +
+For example: {empty} +
       `IntStream ints = list.stream().flatMapToInt(x -> IntStream.of(x));`
 
 ==== Using _Optional_ with Primitive Streams
+
+[source,java]
+----
+IntStream stream = IntStream.rangeClosed(1, 10);
+OptionalDouble optional = stream.average();
+----
+
+`OptionalDouble` is for a primitive and `Optional<Double`> is for the `Double` wrapper class.
+Working with the primitive optional class looks similar to working with the `Optional` class itself.
+
+[source,java]
+----
+optional.ifPresent(System.out::println);
+System.out.println(optional.getAsDouble());
+System.out.println(optional.orElseGet(() -> Double.NaN));
+----
+
+The only noticeable difference is that we called `getAsDouble()` rather than `get()`
+This makes it clear that we are working with primitive.
+Also, `orElseGet()` takes a `DoubleSupplier` instead of `Supplier`.
+
+.Optional types for primitives
+[stripes=even,cols="2a, 2a, 2a, 2a",options="header"]
+|===
+| |`OptionalDouble` |`OptionalInt` |`OptionalLong`
+
+|Getting as primitive
+|`getAsDouble()`
+|`getAsInt()`
+|`getAsLong()`
+
+|`orElseGet()` parameter type
+|`DoubleSupplier`
+|`IntSupplier`
+|`LongSupplier`
+
+|Return type of `max()`
+|`OptionalDouble`
+|`OptionalInt`
+|`OptionalLong`
+
+|Return type of `sum()`
+|double
+|int
+|long
+
+|Return type of `average()`
+|OptionalDouble
+|OptionalDouble
+|OptionalDouble
+|===
+
+Let's try an example:
+
+[source,java]
+----
+LongStream longs = LongStream.of(5, 10);
+long sum = longs.sum();
+System.out.println(sum); // 15
+
+DoubleStream doubles = DoubleStream.generate(() -> Math.PI);
+OptionalDouble min = doubles.min(); // runs infinitely
+----
+
+==== Summarizing Statistics
+
+[source,java]
+----
+private static int range(IntStream ints) {
+    IntSummaryStatistics stats = ints.summaryStatistics();
+    if (stats.getCount() == 0) throw new RuntimeException();
+    return stats.getMax() - stats.getMin();
+}
+----
+
+==== Learning the Functional Interfaces fot Primitives
+
+===== Functional Interfaces for _boolean_
+
+[source]
+----
+BooleanSupplier b1 = () -> true;
+System.out.println(b1.getAsBoolean());
+
+BooleanSupplier b2 = () -> Math.random() > .5;
+System.out.println(b2.getAsBoolean());
+----
+
+===== Functional Interfaces for _double_, _int_, and _long_
+
+.Common function interfaces for primitives
+[stripes=even,cols="2a, 2a, 2a, 2a",options="header"]
+|===
+|Functional Interfaces |# Parameters |Return Type |Single Abstract Method
+
+|`DoubleSupplier` {empty}+
+`IntSupplier` {empty}+
+`LongSupplier`
+|0
+|`double` {empty}+
+`int` {empty}+
+`long`
+|`getAsDouble()` {empty}+
+`getAsInt()` {empty}+
+`getAsLong()`
+
+|`DoubleConsumer` {empty}+
+`IntConsumer` {empty}+
+`LongConsumer`
+|1 (`double`) {empty}+
+1 (`int`)  {empty}+
+1 (`long`)
+|`void`
+|`accept`
+
+|`DoublePredicate` {empty}+
+`IntPredicate` {empty}+
+`LongPredicate`
+|1 (`double`) {empty}+
+1 (`int`)  {empty}+
+1 (`long`)
+|`boolean`
+|`test`
+
+|`DoubleFunction<R>` {empty}+
+`IntFunction<R>` {empty}+
+`LongFunction<R>`
+|1 (`double`) {empty}+
+1 (`int`)  {empty}+
+1 (`long`)
+|R
+|`apply`
+
+|`DoubleUnaryOperator` {empty}+
+`IntUnaryOperator` {empty}+
+`LongUnaryOperator`
+|1 (`double`) {empty}+
+1 (`int`)  {empty}+
+1 (`long`)
+|`double` {empty}+
+`int` {empty}+
+`long`
+|`applyAsDouble` {empty}+
+`applyAsInt` {empty}+
+`applyAsLong` {empty}+
+
+|`DoubleBinaryOperator` {empty}+
+`IntBinaryOperator` {empty}+
+`LongBinaryOperator`
+|2 (`double`, `double`) {empty}+
+2 (`int`, `int`)  {empty}+
+2 (`long`, `long`)
+|`double` {empty}+
+`int` {empty}+
+`long`
+|`applyAsDouble` {empty}+
+`applyAsInt` {empty}+
+`applyAsLong` {empty}+
+|===
+
+- Generics are gone from some of the interfaces, since the type name tells us what primitive type is involved.
+In other cases, such as `IntFunction`, only return type generic is needed.
+- The single abstract method is often, but not always, renamed to reflect the primitive type involved.
+- `BiConsumer`, `BiPredicate`, and `BiFunction` are not in above table.
+The API designers stuck to the most common operations.
+For primitives, the functions with two different tyep parameters just aren't used often.
+
+In addition, some interfaces are specific to primitives.
+
+.Primitive specific functional interfaces
+[stripes=even,cols="2a, 2a, 2a, 2a",options="header"]
+|===
+|Functional Interfaces |# Parameters |Return Type |Single Abstract Method
+
+|`ToDoubleFunction<T>` {empty}+
+`ToIntFunction<T>` {empty}+
+`ToLongFunction<T>`
+|1 (T)
+|`double` {empty}+
+`int` {empty}+
+`long`
+|`applyAsDouble` {empty}+
+`applyAsInt` {empty}+
+`applyAsLong`
+
+|`ToDoubleBiFunction<T, U>` {empty}+
+`ToIntBiFunction<T, U>` {empty}+
+`ToLongBiFunction<T, U>`
+|2 (T, U)
+|`double` {empty}+
+`int` {empty}+
+`long`
+|`applyAsDouble` {empty}+
+`applyAsInt` {empty}+
+`applyAsLong`
+
+|`DoubleToIntFunction` {empty}+
+`DoubleToLongFunction` {empty}+
+`IntToDoubleFunction` {empty}+
+`IntToLongFunction` {empty}+
+`LongToDoubleFunction` {empty}+
+`LongToIntFunction`
+|1 (`double`) {empty}+
+1 (`double`) {empty}+
+1 (`int`) {empty}+
+1 (`int`) {empty}+
+1 (`long`) {empty}+
+1 (`long`)
+|`int` {empty}+
+`long` {empty}+
+`double` {empty}+
+`long` {empty}+
+`double` {empty}+
+`int`
+|`applyAsInt` {empty}+
+`applyAsLong` {empty}+
+`applyAsDouble` {empty}+
+`applyAsLong` {empty}+
+`applyAsDouble` {empty}+
+`applyAsInt`
+
+|`ObjDoubleConsumer<T>` {empty}+
+`ObjIntConsumer<T>` {empty}+
+`ObjLongConsumer<T>`
+|2 (T, `double`) {empty}+
+2 (T, `int`) {empty}+
+2 (T, `long`)
+|void
+|`accept`
+|===
+
+[source,java]
+----
+double d = 1.0;
+DoubleToIntFunction f1 = x -> 1;
+f1.applyAsInt(d);
+----
+
+=== Working with Advanced Stream Pipeline Concepts
