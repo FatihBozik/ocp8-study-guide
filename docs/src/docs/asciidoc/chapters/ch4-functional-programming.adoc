@@ -1235,4 +1235,172 @@ The filter doesn’t allow anything through, so `limit()` never sees two element
 
 === Working with Primitives
 
+Up until now, we have been using wrapper classes when we needed primitives to go into streams.
+With streams, there are also equivalents that work with the `int`, `double`, and `long` primitives.
+Suppose that we want to calculate to the sum of numbers in finite stream:
 
+[source,java]
+----
+Stream<Integer> stream = Stream.of(1, 2, 3);
+int reduce = stream.reduce(0, (a, b) -> a + b); // 6
+----
+
+There is another way of doing that.
+
+[source,java]
+----
+Stream<Integer> stream = Stream.of(1, 2, 3);
+System.out.println(stream.mapToInt(x -> x).sum()); // <1>
+----
+<1> We converted our `Stream<Integer>` to an `IntStream` and asked the `InStream` to calculate for sum for us.
+The primitive streams know how to perform certain common operations automatically.
+
+How you would compute an average*
+
+[source,java]
+----
+IntStream intStream = IntStream.of(1, 2, 3);
+OptionalDouble avg = intStream.average();
+System.out.println(avg.getAsDouble());
+----
+
+Not only is it possible to calculate the average, but it is also easy to do so.o
+
+==== Creating Primitive Streams
+
+- `InStream`: Used for the primitive types for `int`, `short`, `byte`, and `char`.
+- `LongStream`: Used for the primitive type `long`.
+- `DoubleStream`: used for the primitive types `double` and `float`.
+
+You can create an empty stream with this:
+
+[source,java]
+----
+DoubleStream empty = DoubleStream.empty();
+----
+
+Another way is to use the `of()` factory method from a single value or by using the `varargs` overload:
+
+[source,java]
+----
+DoubleStream oneValue = DoubleStream.of(3.14);
+oneValue.forEach(System.out::println);
+
+DoubleStream varargs = DoubleStream.of(1.0, 1.1, 1.2);
+varargs.forEach(System.out::println);
+----
+
+It works the same way for each type of primitive streams.
+You can also use this approach for creating stream:
+
+[source,java]
+----
+DoubleStream random = DoubleStream.generate(Math::random);
+random.limit(3).forEach(System.out::println);
+
+DoubleStream fractions = DoubleStream.iterate(.5, d -> d / 2);
+fractions.limit(3).forEach(System.out::println);
+----
+
+`Random` class provides a method to get primitive streams of random numbers directly.
+For example, `ints()` generates an infinite stream of `int` primitives.
+
+[source,java]
+----
+Random r = new Random();
+r.ints().limit(3).forEach(System.out::println); // 123
+----
+
+When dealing with `int` or `long` primitives, it is common to count.
+Suppose that we wanted a stream with the numbers from 1 through 5.
+
+[source,java]
+----
+IntStream count = IntStream.iterate(1, n -> n + 1).limit(5);
+count.forEach(System.out::println); // 12345
+
+IntStream range = IntStream.range(1, 6);
+range.forEach(System.out::println); // 12345
+
+IntStream rangeClosed = IntStream.rangeClosed(1, 5);
+rangeClosed.forEach(System.out::println); // 12345
+----
+
+The final way to create a primitive stream is by mapping from another stream type.
+
+.Mapping methods between types of streams
+[stripes=even,cols="2a, 2a, 2a, 2a, 2a",options="header"]
+|===
+|Source Stream Class |To Create Stream |To Create `DoubleStream` |To Create `IntStream` |To Create `LongStream`
+
+|`Stream`
+|`map`
+|`mapToDouble`
+|`mapToInt`
+|`mapToLong`
+
+|`DoubleStream`
+|`mapToObj`
+|`map`
+|`mapToInt`
+|`mapToLong`
+
+|`IntStream`
+|`mapToObj`
+|`mapToDouble`
+|`map`
+|`mapToLong`
+
+|`LongStream`
+|`mapToObj`
+|`mapToDouble`
+|`mapToInt`
+|`map`
+|===
+
+Java requires a mapping function to be provided as a parameter, for example:
+
+[source,java]
+----
+Stream<String> objStream = Stream.of("penguin", "fish");
+IntStream intStream = objStream.mapToInt(s -> s.length());
+----
+
+This function that takes an `Object`, which is a `String` in this case.
+The function returns an `int`.
+
+.Function parameters when mapping between types of streams.
+[stripes=even,cols="2a, 2a, 2a, 2a, 2a",options="header"]
+|===
+|Source Stream Class |To Create Stream |To Create `DoubleStream` |To Create `IntStream` |To Create `LongStream`
+
+|`Stream`
+|`Function`
+|`ToDoubleFunction`
+|`ToIntFunction`
+|`ToLongFunction`
+
+|`DoubleStream`
+|`DoubleFunction`
+|`DoubleUnaryOperator`
+|`DoubleToIntFunction`
+|`DoubleToLongFunction`
+
+|`IntStream`
+|`IntFunction`
+|`IntToDoubleFunction`
+|`IntUnaryOperator`
+|`IntToLongFunction`
+
+|`LongStream`
+|`LongFunction`
+|`LongToDoubleFunction`
+|`LongToIntFunction`
+|`LongUnaryFunction`
+|===
+
+NOTE: You can also create a primitive stream from a Stream using `flatMapToInt()`, `flatMapToDouble()`, `flatMapToLong()`.
+      For example: {empty} +
+      `IntStream ints = list.stream().flatMapToInt(x -> IntStream.of(x));`
+
+==== Using _Optional_ with Primitive Streams
