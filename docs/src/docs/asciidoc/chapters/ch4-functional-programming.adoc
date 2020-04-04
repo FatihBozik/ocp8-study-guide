@@ -1643,3 +1643,453 @@ f1.applyAsInt(d);
 ----
 
 === Working with Advanced Stream Pipeline Concepts
+
+==== Linking Streams to the Underlying Data
+
+[source,java]
+----
+List<String> cats = new ArrayList<>();
+cats.add("Annie");
+cats.add("Ripley");
+Stream<String> stream = cats.stream();
+cats.add("KC");
+System.out.println(stream.count());
+----
+
+The correct answer is 3. `cats.stream()` requests that a stream be created from that `List`.
+Remember that streams are lazily evaluated.
+This means that the stream isn't actually created this point.
+An object is created that knows where to look for the data when it is needed.
+`count()` method called , the stream pipeline actually runs.
+The stream pipeline runs first, looking at the source and seeing three elements.
+
+==== Chaining Optionals
+
+Suppose that you are given an `Optional<Integer>` and asked to print the value, but only if it is a three-digit number.
+Without functional programming, you could write the following:
+
+[source,java]
+----
+private static void threeDigit(Optional<Integer> optional) {
+    if (optional.isPresent()) {
+        Integer num = optional.get();
+        String string = "" + num;
+        if (string.length() == 3)
+            System.out.println(string);
+    }
+}
+----
+
+Let's try this again with functional programing.
+
+[source,java]
+----
+private static void threeDigit(Optional<Integer> optional) {
+    optional.map(n -> "" + n)
+            .filter(s -> s.length() == 3)
+            .ifPresent(System.out::println);
+}
+----
+
+Now suppose that we wanted to get an `Optional<Integer>` representing the length of the `String` contained another Optional.
+Easy enough:
+
+[source,java]
+----
+Optional<String> optional = Optional.of("Animal");
+Optional<Integer> integer = optional.map(String::length);
+integer.ifPresent(System.out::println);
+----
+
+What if we had a helper method that did the logic of calculating something for us and it had the signature `static Optional<Integer> calculator(String s)` ?
+Using map doesn't work.
+
+[source,java]
+----
+public class ChainingOptionals {
+    public static void main(String[] args){
+        Optional<Integer> result = optional.map(Example3::calculator); // DOES NOT COMPILE
+    }
+
+    private static Optional<Integer> calculator(String s) {
+        return Optional.of(5);
+    }
+}
+----
+
+The problem is that calculator returns `Optional<Integer>`.
+The `map()` method adds another `Optional`, giving us `Optional<Optional<Integer>>`.
+The solution is to call `flatMap()` instead:
+
+[source,java]
+----
+Optional<Integer> result = optional.flatMap(Example3::calculator);
+----
+
+`flatMap` removes the unnecessary layer.
+In other words, it flattens result.
+Chaining calls to `flatMap()` is useful when you want to transform one `Optional` type to another.
+
+.Checked Exceptions and Functional Interfaces
+****
+The functional interfaces do not declare checked exceptions.
+It is a problem when working with methods that declare checked exceptions.
+Suppose that we have a class with a method that throws a checked exception:
+
+[source,java]
+----
+import java.io.IOException;
+import java.util.List;
+
+public class ExceptionCaseStudy {
+    private static List<String> create() throws IOException {
+        throw new IOException();
+    }
+    public static void main(String[] args) {
+        create().stream().count(); // DOES NOT COMPILE> unhandled exception
+    }
+}
+----
+
+The `create()` method throws a checked exception.
+The calling method handles or declares it.
+What about this one?
+
+[source,java]
+----
+Supplier<List<String>> s = ExceptionCaseStudy::create; // DOES NOT COMPILE> unhandled exception
+----
+
+The problem is that the lambda to which this method reference expands does declare an exception.
+`Supplier` interface does not allow checked exceptions.
+There are two approaches to get around this problem.
+One is catch the exception and turn it an unchecked exception.
+
+[source,java]
+----
+Supplier<List<String>> s = () -> {
+    try {
+        return Example4.create();
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+};
+----
+
+Another alternative is to create a wrapper method with the `try/catch`:
+
+[source,java]
+----
+import java.io.IOException;
+import java.util.List;
+
+public class ExceptionCaseStudy {
+     private static List<String> createSafe() {
+        try {
+            return Example4.create();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+    private static List<String> create() throws IOException {
+        throw new IOException();
+    }
+    public static void main(String[] args) {
+        Supplier<List<String>> s2 = Example4::createSafe;
+    }
+}
+----
+
+****
+
+==== Collecting Results
+
+.Examples of grouping/partitioning collectors
+[stripes=even,cols="4a, 2a, 2a",options="header"]
+|===
+|Collector |Description |Return Value When Passed to collect
+
+|`averagingDouble(ToDoubleFunction f)` {empty}+
+`averagingInt(ToIntFunction f)` {empty}+
+`averagingLong(ToLongFunction f)`
+|Calculates the average for our three core primitive types
+|`Double`
+
+|`counting()`
+|Counts number of elements
+|`Long`
+
+|`groupingBy(Function f)` {empty}+
+`groupingBy(Function f, Collector dc)` {empty}+
+`groupingBy(Function f, Supplier s, Collector dc)`
+|Creates a map grouping by the specified function with the optional type and optional downstream collector
+|`Map<K, List<T>`
+
+|`joining()` {empty}+
+`joining(CharSequence cs)`
+|Creates a single `String` using cs as a delimeter between elements if one is specified.
+|`String`
+
+|`maxBy(Comparator c)` {empty}+
+`minBy(Comparator c)` {empty}+
+|Finds the largest/smallest elements.
+|`Optional<T>`
+
+|`mapping(Function f, Comparator dc)`
+|Adds another level of collectors
+|`Collector`
+
+|`partitioningBy(Predicate p)` {empty}+
+`partitioningBy(Predicate p, Collector dc)`
+|Creates a map grouping by the specified predicate with the optional further downstream collector
+|`Map<Boolean, List<T>`
+
+|`summarizingDouble(ToDoubleFunction f)` {empty}+
+`summarizingInt(ToIntFunction f)` {empty}+
+`summarizingLong(ToLongFunction f)`
+|Calculates average, min, max, and so on
+|`DoubleSummaryStatistics` {empty}+
+`IntSummaryStatistics` {empty}+
+`LongSummaryStatistics`
+
+|`summingDouble(ToDoubleFunction f)` {empty}+
+`summingInt(ToIntFunction f)`  {empty}+
+`summingLong(ToLongFunction f)`
+|Calculates the sum for our three core primitive types
+|`Double` {empty}+
+`Integer` {empty}+
+`Long`
+
+|`toList()` {empty}+
+`toSet()`
+|Creates an arbitrary type of list or set
+|`List` {empty}+
+`Set`
+
+|toCollection(Supplier s)
+|Creates a `Collection` of the specified type
+|`Collection`
+
+|`toMap(Function k, Function v)` {empty}+
+`toMap(Function k, Function v, BinaryOperator m)` {empty}+
+`toMap(Function k,
+Function v,
+BinaryOperator m,
+Supplier s)`
+|Creates a map using functions to map the keys, values, an optional merge function, and an optional type
+|`Map`
+|===
+
+===== Collecting Using Basic Collectors
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+String result = ohMy.collect(Collectors.joining(", "));
+System.out.println(result); // lions, tigers, bears
+----
+
+We pass the predefined `joining()` collector to the `collect()` method.
+All elements of the stream are then merged into a `String` with the specified delimeter between each element.
+
+What is the average length of the three animal names?
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Double result = ohMy.collect(Collectors.averagingInt(String::length));
+System.out.println(result); // 5.333333333333333
+----
+
+The pattern is the same.
+We pass a collector to `collect()` and it performs the average for us.
+This time, we needed to pass a function to tell the collector what to average.
+We used a method reference, which returns an `int` upon execution.
+With primitive streams, the result of an average was always a `double`, regardless of what type is being averaged.
+For collectors, it is a `Double` since those need an `Object`.
+
+[source,java]
+----
+Stream<String> ohMy3 = Stream.of("lions", "tigers", "bears");
+TreeSet<String> result3 = ohMy3.filter(s -> s.startsWith("t"))
+        .collect(Collectors.toCollection(TreeSet::new));
+System.out.println(result3); // [tigers]
+----
+
+`Stream.of()` is the source for the stream.
+Intermediate operation is `filter()`.
+Finally, the terminal operation is `collect()`, which creates a `TreeSet`.
+
+===== Collecting into Maps
+
+Let's start out with a straightforward example to create a map from a stream:
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<String, Integer> map = ohMy.collect(Collectors.toMap(s -> s, String::length));
+System.out.println(map); // {lions=5, bears=5, tigers=6}
+----
+
+When creating a map, you need to specify two functions.
+The first function tells the collector how to create the key.
+In our example, we use the provided `String` as the key.
+The second function tells the collector how to create the value.
+In our example, we use the length of the `String` as the value.
+
+Returning the same value passed into a lambda is a common operation, so Java provides a method for it.
+You can rewrite `s -> s` as `Function.identity()`.
+It is not shorter and may or may not be clearer, so use your judgement on whether to use it.
+
+Now we want to do the reverse and map the length of the animal name to the name itself.
+Our first incorrect attempt is shown here:
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, String> map = ohMy.collect(Collectors.toMap(String::length, k -> k)); // throws java.lang.IllegalStateException: Duplicate key lions
+----
+
+Running this gives an IllegalStateException.
+Two of the animal names are the same length.
+We didn't tell Java what to do.
+Should the collector choose the first one it encounters?
+The last one it encounters?
+Concatenate the two?
+Since collector has no idea what to do.
+
+Let's suppose that our requirement is to create a comma-separated `String` with the animal names.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, String> map = ohMy.collect(Collectors.toMap(String::length, k -> k, (s1, s2) -> s1 + "," + s2));
+System.out.println(map); // {5=lions,bears, 6=tigers}
+System.out.println(map.getClass()); // class java.util.HashMap
+----
+
+It so happens that the `Map` returned is a `HashMap`.
+This behaviour is not guaranteed.
+Suppose that we want to mandate that code return a `TreeMap` instead.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, String> map = ohMy.collect(Collectors.toMap(String::length, k -> k, (s1, s2) -> s1 + "," + s2, TreeMap::new));
+System.out.println(map); // {5=lions,bears, 6=tigers}
+System.out.println(map.getClass()); // class java.util.TreeMap
+----
+
+===== Collecting using Grouping, Partitioning, and Mapping
+
+Now suppose that we want to get groups of names by their length.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, List<String>> map = ohMy.collect(Collectors.groupingBy(String::length));
+System.out.println(map); // {5=[lions, bears], 6=[tigers]}
+----
+
+The `groupingBy` collector tells `collect()` that it should group all of the elements of the stream into lists, organizing them by the function provided.
+This makes the keys in the map function value and the values the function results.
+
+Suppose that we don't want a `List` as the value in map and prefer a `Set` instead.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, Set<String>> map = ohMy.collect(Collectors.groupingBy(String::length, Collectors.toSet()));
+System.out.println(map); // {5=[lions, bears], 6=[tigers]}
+----
+
+We can even change the type of Map returned through yet another parameter:
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+TreeMap<Integer, Set<String>> map = ohMy.collect(Collectors.groupingBy(String::length, TreeMap::new, Collectors.toSet()));
+System.out.println(map); // {5=[lions, bears], 6=[tigers]}
+----
+
+What if we want to change the type of the Map returned but leave the type of values alone as `List`?
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+TreeMap<Integer, List<String>> map = ohMy.collect(Collectors.groupingBy(String::length, TreeMap::new, Collectors.toList()));
+System.out.println(map); // {5=[lions, bears], 6=[tigers]}
+----
+
+Partitioning is a special case of grouping.
+With partitioning, there are only two posiible groups - true and false.
+_Partitioning_ is like splitting a list into two parts.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Boolean, List<String>> map = ohMy.collect(Collectors.partitioningBy(s -> s.length() <= 5));
+System.out.println(map); // {false=[tigers], true=[lions, bears]}
+
+Stream<String> ohMy2 = Stream.of("lions", "tigers", "bears");
+Map<Boolean, List<String>> map2 = ohMy2.collect(Collectors.partitioningBy(s -> s.length() <= 7));
+System.out.println(map2); // {false=[], true=[lions, tigers, bears]}
+----
+
+.Debugging Complicated Generics
+****
+When working with `collect()`, there are often many levels of generics, making compiler errors unreadable.
+
+- Start over with a simple statement and keeping adding to it.
+By making one tiny change at time, you will know which code introduced the error.
+- Extract parts of the statement into separate statements.
+For example, try writing `Collectors.groupingBy(String::length, Collectors.counting());`.
+If it compiles, you know that the problem lies everywhere.
+If it doesn't compile, you have a much shorter statement to troubleshoot.
+- Use generic wildcards for the return type of the final statement, for example, `Map<?, ?>`.
+If that change alone allows the code to compile, you'll know that the problem lies with the return type not being what you expect.
+****
+
+As with `groupingBy()`, we can change the type of `List` to something else:
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Boolean, Set<String>> map = ohMy.collect(Collectors.partitioningBy(s -> s.length() <= 7, Collectors.toSet()));
+System.out.println(map); // {false=[], true=[lions, tigers, bears]}
+----
+
+Unlike `groupingBy()`, we cannot change the type of Map that gets returned.
+However, there are only two keys in the map, so does it really matter which `Map` type we use?
+
+We can group by the length of the animal name to see how many of each length we have:
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, Long> map = ohMy.collect(Collectors.groupingBy(String::length, Collectors.counting()));
+System.out.println(map); // {5=2, 6=1}
+----
+
+Finally, there is a `mapping()` collector that lets us go down a level and add another collector.
+Suppose that we wanted to get the first letter of the first animal alphabetically of each length.
+
+[source,java]
+----
+Stream<String> ohMy = Stream.of("lions", "tigers", "bears");
+Map<Integer, Optional<Character>> map = ohMy.collect(
+        Collectors.groupingBy(
+                String::length,
+                Collectors.mapping(s -> s.charAt(0), Collectors.minBy(Character::compareTo))
+        )
+);
+System.out.println(map); // {5=Optional[b], 6=Optional[t]}
+----
+
+
+
+
+
+
+
+
