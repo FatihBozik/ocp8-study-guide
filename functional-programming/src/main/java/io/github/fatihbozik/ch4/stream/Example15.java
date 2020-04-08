@@ -18,7 +18,7 @@ public class Example15 {
         s.sorted().forEach(System.out::print); // bear-brown-
 
         Stream<String> s2 = Stream.of("brown bear-", "grizzly-");
-        s2.sorted(Comparator.reverseOrder()).forEach(System.out::print); // bear-brown-grizzly-brown bear-
+        s2.sorted(Comparator.reverseOrder()).forEach(System.out::print); // grizzly-brown bear-
         // s2.sorted(Comparator::reverseOrder()); // DOES NOT COMPILE
 
         Stream<String> stream = Stream.of("black bear", "brown bear", "grizzly");
