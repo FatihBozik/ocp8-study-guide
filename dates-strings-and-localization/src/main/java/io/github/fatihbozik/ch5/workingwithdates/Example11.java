@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch5;
+package io.github.fatihbozik.ch5.workingwithdates;
 
 import java.time.LocalTime;
 import java.time.Period;
