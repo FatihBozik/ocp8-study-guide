@@ -1,2 +1,10 @@
 [[chapter-5]]
 == Dates, Strings, and Localization
+
+*LocalDate* Contains just a date - no time and no time zone.
+
+*LocalTime* Contains just a time - no date and no time zone.
+
+*LocalDateTime* Contains both a date and time but no time zone.
+
+*ZonedDateTime* Contains a date, time and time zone.
