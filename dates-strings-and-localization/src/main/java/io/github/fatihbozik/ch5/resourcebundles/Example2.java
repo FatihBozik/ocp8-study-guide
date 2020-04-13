@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch5.i18nandl10n;
+package io.github.fatihbozik.ch5.resourcebundles;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,6 +17,5 @@ public class Example2 {
         ResourceBundle rb = ResourceBundle.getBundle("Zoo", locale);
         System.out.println(rb.getString("hello"));
         System.out.println(rb.getString("open"));
-
     }
 }

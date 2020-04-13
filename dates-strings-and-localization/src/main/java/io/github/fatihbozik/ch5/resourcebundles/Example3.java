@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch5.i18nandl10n;
+package io.github.fatihbozik.ch5.resourcebundles;
 
 import java.util.Locale;
 import java.util.Properties;
