@@ -1,2 +1,61 @@
 [[chapter-7]]
 == Concurrency
+
+=== Introducing Threads
+
+A _thread_ is the smallest unit of execution that can be scheduled by the operating system.
+A _process_ is a group of associated threads that execute in the same, shared environment.
+It follows, then, that a __single-threaded process__ is one that contains exactly one thread, whereas a _multi-threaded process_ is one that contains one or more threads.
+
+By _shared environment_, we mean that the threads in the same process share the same memory space and can communicate directly with one another.
+
+A _task_ is a single unit of work performed by a thread.
+
+==== Distinguishing Thread Types
+
+A _system thread_ is created by the JVM and runs in the background of the application.
+For example, the garbage-collection thread is a system thread that is created by the JVM and runs in the background, helping to free memory that is no longer in use.
+
+Alternatively, a _user-defined thread_ is one created by the application developer to accomplish a specific task.
+All of the applications that we have created up to this point have been multi-threaded, but they contained only one user-defined thread, which calls the main() method.
+
+NOTE:: A _daemon thread_ is one that will not prevent the JVM from exiting when the program finishes.
+A Java application terminates when the only threads that are running are daemon threads.
+For example, if the garbage-collection thread is the only thread left running, the JVM will automatically shut down.
+Both system and user-defined threads can be marked as daemon threads.
+
+==== Understanding Thread Concurrency
+
+The property of executing multiple threads and processes at the same time is referred to as _concurrency_.
+Of course, with a single-core CPU system, only one task is actually executing at a given time.
+Even in multi-core or multi-CPU systems, there are often far more threads than CPU processors available.
+
+Operating systems use a _thread scheduler_ to determine which threads should be currently executing.
+For example, a thread scheduler may employ a round-robin schedule in which each available thread receives an equal number of CPU cycles with which to execute, with threads visited in a circular order.
+If there are 10 available threads, they might each get 100 milliseconds in which to execute, with the process returning to the first thread after the last thread has executed.
+
+When a thread’s allotted time is complete but the thread has not finished processing, a c__ontext switch__ occurs.
+A context switch is the process of storing a thread’s current state and later restoring the state of the thread to continue execution.
+Be aware that there is often a cost associated with a context switch by way of lost time saving and reloading a thread’s state.
+
+Finally, a thread can interrupt or supersede another thread if it has a higher _thread priority_ than the other thread.
+A thread priority is a numeric value associated with a thread that is taken into consideration by the thread scheduler when determining which threads should currently be executing.
+In Java, thread priorities are specified as integer values.
+
+.Java thread priority constants
+[stripes=even,cols="2a, 1",options="header",width="70%"]
+|===
+|Constant Variable |Value
+
+|`Thread.MIN_PRIORITY`
+|1
+
+|`Thread.NORM_PRIORITY`
+|5
+
+|`Thread.MAX_PRIORITY`
+|10
+|===
+
+=== Introducing Runnable
+
