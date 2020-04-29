@@ -5,7 +5,9 @@ class CheckResults {
 
     public static void main(String[] args) throws InterruptedException {
         new Thread(() -> {
-            for (int i = 0; i < 500; i++) CheckResults.counter++;
+            for (int i = 0; i < 500; i++) {
+                CheckResults.counter++;
+            }
         }).start();
 
         while (CheckResults.counter < 100) {
