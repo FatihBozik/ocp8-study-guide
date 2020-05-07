@@ -984,7 +984,7 @@ Stream<T> skip(int n)
 
 Example:
 
-The following code creates an infinite stream of numbers counting from 1. The skip operation returns an infinite stream starting with the numbers counting from 6i since it skips the first five elements.
+The following code creates an infinite stream of numbers counting from 1. The skip operation returns an infinite stream starting with the numbers counting from 6, since it skips the first five elements.
 The `limit()` call takes the first two of those.
 
 [source,java]

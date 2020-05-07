@@ -59,3 +59,28 @@ In Java, thread priorities are specified as integer values.
 
 === Introducing Runnable
 
+---
+
+- `Thread.sleep(1000);` throws InterruptedException
+
+- `future.get(10, TimeUnit.SECONDS);` throws InterruptedException, ExecutionException, TimeoutException
+
+- `future.get();` throws InterruptedException, ExecutionException
+
+- `executorService.awaitTermination(1, TimeUnit.MINUTES);` throws InterruptedException
+
+- `blockingQueue.poll(10, TimeUnit.MILLISECONDS)` throws InterruptedException
+  `blockingQueue.offer(5, 10, TimeUnit.MILLISECONDS)` throws InterruptedException
+
+-  throws InterruptedException
+[source,java]
+----
+   blockingDeque.offerFirst(5, 2, TimeUnit.MINUTES);
+   blockingDeque.offerLast(47, 100, TimeUnit.MICROSECONDS);
+   blockingDeque.offer(3, 4, TimeUnit.SECONDS);
+   blockingDeque.poll(950, TimeUnit.MILLISECONDS);
+   blockingDeque.pollFirst(200, TimeUnit.NANOSECONDS);
+   blockingDeque.pollLast(1, TimeUnit.SECONDS)
+----
+
+- `cyclicBarrier.await();` throws InterruptedException, BrokenBarrierException
