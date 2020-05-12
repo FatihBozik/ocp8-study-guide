@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch8.files;
+package io.github.fatihbozik.ch8.streams;
 
 public class Example4 {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch8.files;
+package io.github.fatihbozik.ch8.streams;
 
 import java.io.*;
 import java.net.URL;
