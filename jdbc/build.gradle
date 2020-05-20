@@ -1,0 +1,4 @@
+dependencies {
+    implementation 'org.postgresql:postgresql:42.2.12'
+    implementation 'com.zaxxer:HikariCP:3.4.5'
+}
