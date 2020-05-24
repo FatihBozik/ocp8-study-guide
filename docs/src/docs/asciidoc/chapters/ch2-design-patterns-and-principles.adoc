@@ -32,7 +32,7 @@ public class Eagle implements Fly {
 
 The first method of the interface, `getWingSpan()` declares an exception in the interface.
 Due to the rules of method overriding, this does not require the exception to be declared in the overridden method in the Eagle class.
-The second declaration, `MAX_SPEED`, is a constant `static` variable available anywhere within out application.
+The second declaration, `MAX_SPEED`, is a constant `static` variable available anywhere within our application.
 The next method, `land()` is a `default` method that has been optionally overridden in the Eagle class.
 Finally, the method `calculateSpeed()` is `static` member and, like `MAX_SPEED`, it is available without an instance of the interface.
 
@@ -741,8 +741,8 @@ public class StaffRegister {
 
 Both the `StaffRegister` class and our previous `HayStorage` class instantiate the singleton at the time the class is loaded.
 Unlike the `HayStorage` class, though, the `StaffRegister` class instantiates the singleton as part of a `static` initialization block.
-Conceptually, these two implementations are equivalent, since both create the singleton when the class is loaded, althought the `static` initialization block allows additional steps to be taken to set up the sşngleton after it has been created.
-It also allows us to ahndle cases in which the `StaffRegister` constructor throws an exception.
+Conceptually, these two implementations are equivalent, since both create the singleton when the class is loaded, althought the `static` initialization block allows additional steps to be taken to set up the singleton after it has been created.
+It also allows us to handle cases in which the `StaffRegister` constructor throws an exception.
 Since the singleton is created when the class is loaded, we are able to mark the reference `final`, which guarantees only one instance will be created within our application.
 
 Singletons are used in situations where we need access to a single set of data throughout on application.
@@ -789,14 +789,14 @@ Unfortunately, because we used lazy instantiation in the `VisitorTicketTracker` 
 The implementation of `VisitorTicketTracker`, as shown, is not considered thread-safe in that two threads could call getInstance() at the same time, resulting in two objects being created.
 After both threads finish executing, only one object will be set and used by other threads going forward, but the object that the two initial threads received may not be same.
 
-_Thread safety_ is the proeprty of an object that guarantees safe execution ny multiple threads at the same time.
-Simple solution that is compatible with lazy instantiation using yhe `synchronized` modifier.
+_Thread safety_ is the property of an object that guarantees safe execution by multiple threads at the same time.
+Simple solution that is compatible with lazy instantiation using the `synchronized` modifier.
 
 [source,java]
 ----
 public static synchronized VisitorTicketTracker getInstance() {
     if(instance == null) {
-        instance = new VisitorTicketTracker(); // NOT THREAD-SAFE!
+        instance = new VisitorTicketTracker();
     }
     return instance;
 }
