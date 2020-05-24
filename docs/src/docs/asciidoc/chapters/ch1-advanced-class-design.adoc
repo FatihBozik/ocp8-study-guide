@@ -58,7 +58,7 @@ public class Lynx extends BigCat {
 - `cat.name` **compiles** because any code can access public members.
 - `cat.hasFur` is tricky one.
 protected allows subclasses and code in the same package to access members.
-**Does not compile** because code is being accessed via the variable rather than by inheritance, it doesnt benefit from protected.
+**Does not compile** because code is being accessed via the variable rather than by inheritance, it doesn't benefit from protected.
 If the code in main was `Lynx cat = new Lynx();` would be compile.
 - `cat.hasPawns` **does not compile** because only code in the same package can access code with default access.
 - `cat.id` **does not compile** because only code in the same class can access private members.
@@ -928,7 +928,7 @@ This syntax isn't used often enough to get used to it.
 public static void main(String[] args) {
   Outer outer = new Outer();
   Inner inner = outer.new Inner(); // create the inner class
-  inner.go;
+  inner.go();
 }
 ----
 
@@ -1156,7 +1156,7 @@ And since it is `static`, alternatively you can use a `static` import:
 
 [source,java]
 ----
-import static bird.toucan.Beak;
+import static bird.Toucan.Beak;
 ----
 
 Either one will compile.

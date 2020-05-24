@@ -3,6 +3,7 @@ package io.github.fatihbozik.ch1.enums.example3;
 /**
  * @author Fatih Bozik
  */
+
 enum Season {
     WINTER("Low"),
     SPRING("Medium"),

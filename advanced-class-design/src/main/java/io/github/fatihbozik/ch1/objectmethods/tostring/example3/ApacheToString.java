@@ -11,19 +11,24 @@ class Hippo {
     private double weight;
 
     public Hippo(String name, double weight) {
-	this.name = name;
-	this.weight = weight;
+        this.name = name;
+        this.weight = weight;
     }
 
     public String toString() {
-	return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-	// return ToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+//	 return ToStringBuilder.reflectionToString(this);
+
+//       return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+//                .append("name", name)
+//                .append("weight", weight)
+//                .toString();
     }
 }
 
 public class ApacheToString {
     public static void main(String[] args) {
-	Hippo hippo = new Hippo("John", 86869);
-	System.out.println(hippo); // Hippo[name=John,weight=86869.0]
+        Hippo hippo = new Hippo("John", 86869);
+        System.out.println(hippo); // Hippo[name=John,weight=86869.0]
     }
 }
