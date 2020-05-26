@@ -19,10 +19,21 @@ public class UpperBoundedWildcard {
 
     public static long total(List<? extends Number> list) { // public static long total(List list) {
         long count = 0;                                     //    long count = 0;
+        //
         for (Number number : list) {                        //    for(Object obj: list) {
             count += number.longValue();                    //        Number number = (Number) obj;
         }                                                   //        count += number.longValue();
-        return count;                                       //    }
-    }                                                       //    return count;
-                                                            // }
+        //    }
+        return count;                                       //    return count;
+    }                                                       //  }
+
+    public static <N extends Number> long total2(List<N> list) { // public static long total(List list) {
+        long count = 0;                                          //    long count = 0;
+        //
+        for (Number number : list) {                             //    for(Object obj: list) {
+            count += number.longValue();                         //        Number number = (Number) obj;
+        }                                                        //        count += number.longValue();
+        //    }
+        return count;                                            //    return count;
+    }                                                            //  }
 }

@@ -15,7 +15,8 @@ public class TrickyOnes {
         List<String> names = new ArrayList<>();
         names.add("Fatih");
         TrickyOnes trickyOnes = new TrickyOnes();
-        trickyOnes.method1(names);
+        final String name = trickyOnes.method1(names);
+        System.out.println(name);
     }
 
     <T> T method1(List<? extends T> list) {
@@ -23,7 +24,7 @@ public class TrickyOnes {
     }
 
 //    <T> <? extends T> method2(List<? extends T> list) { // DOES NOT COMPILE
-////        list.get(0);
+//        list.get(0);
 //    }
 
 //    <B extends A> B method3(List<B> list) {

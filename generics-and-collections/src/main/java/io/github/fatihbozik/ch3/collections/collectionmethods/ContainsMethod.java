@@ -1,4 +1,4 @@
-package io.github.fatihbozik.ch3.collections.example1;
+package io.github.fatihbozik.ch3.collections.collectionmethods;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,5 +17,9 @@ public class Demo {
         // List<? extends B> list4 = new ArrayList<A>(); // DOES NOT COMPILE
         List<? super B> list5 = new ArrayList<A>();
         // List<?> list6 = new ArrayList<? extends A>(); // DOES NOT COMPILE
+
+        List<?>[] arrayOfList = new List<?>[5];
+        arrayOfList[0] = new ArrayList<String>();
+        arrayOfList[1] = new ArrayList<Integer>();
     }
 }
