@@ -16,5 +16,8 @@ public class Example9 {
                 )
         );
         System.out.println(map); // {5=Optional[b], 6=Optional[t]}
+
+        final Optional<Character> collect = Stream.of("lions", "tigers", "bears").map(s -> s.charAt(0)).collect(Collectors.minBy(Character::compareTo));
+        System.out.println(collect);
     }
 }
