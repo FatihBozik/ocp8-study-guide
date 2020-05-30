@@ -15,5 +15,8 @@ public class Example8 {
         System.out.println("ResolvedPath: " + resolvedPath);
 
         System.out.println("NormalizedPath: " + resolvedPath.normalize());
+
+        Path path5 = Paths.get("../a/../b/.."); // ..
+        System.out.println(path5.normalize());
     }
 }

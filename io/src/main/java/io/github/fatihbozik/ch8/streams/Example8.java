@@ -1,7 +1,5 @@
 package io.github.fatihbozik.ch8.streams;
 
-import io.github.fatihbozik.ch8.streams.Example7;
-
 import java.io.*;
 import java.net.URL;
 

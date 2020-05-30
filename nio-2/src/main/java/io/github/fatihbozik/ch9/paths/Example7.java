@@ -12,5 +12,7 @@ public class Example7 {
         final Path path3 = Paths.get("/turkey/food");
         final Path path4 = Paths.get("/tiger/cage");
         System.out.println(path3.resolve(path4));
+
+        System.out.println(path3.resolve("/directory"));
     }
 }
