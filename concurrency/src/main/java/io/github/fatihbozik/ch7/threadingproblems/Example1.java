@@ -50,7 +50,7 @@ public class Example1 {
         // Process data
         ExecutorService service = null;
         try {
-            service = Executors.newScheduledThreadPool(10);
+            service = Executors.newFixedThreadPool(10);
             service.submit(() -> foxy.eatAndDrink(food, water));
             service.submit(() -> tails.drinkAndEat(food, water));
         } finally {

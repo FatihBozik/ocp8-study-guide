@@ -23,5 +23,9 @@ public class QueueDemo {
         System.out.println(stack.pop()); // 4
         System.out.println(stack.pop()); // 10
         System.out.println(stack.peek()); // null
+
+        stack.offer(5);
+        stack.offer(6);
+        System.out.println(stack.poll());  // 5
     }
 }
