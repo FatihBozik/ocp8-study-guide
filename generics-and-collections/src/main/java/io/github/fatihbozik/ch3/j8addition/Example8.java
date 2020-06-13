@@ -9,17 +9,17 @@ public class Example8 {
         Map<String, String> map = new HashMap<>();
         map.put("a", null);
         map.merge("a", "b", (o, n) -> {
-            System.out.println("Never called");
+            System.out.println("Not called");
             return n;
         });
         System.out.println(map); // {a=b}
 
         map.put("a", null);
         map.merge("a", "c", (o, n) -> {
-            System.out.println("Never called");
+            System.out.println("Not called");
             return null;
         });
-        System.out.println(map); // {a=b}
+        System.out.println(map); // {a=c}
         // endregion
 
         // region merge method: Key has non-null value in map
@@ -41,7 +41,7 @@ public class Example8 {
         // region merge method: Key not in map
         map.clear();
         map.merge("b", "g", (o, n) -> {
-            System.out.print("Called: ");
+            System.out.print("Not Called: ");
             return n;
         });
         System.out.println(map); // {b=g}
@@ -50,7 +50,7 @@ public class Example8 {
         // region merge method: Key not in map
         map.clear();
         map.merge("c", "h", (o, n) -> {
-            System.out.print("Called: ");
+            System.out.print("Not Called: ");
             return null;
         });
         System.out.println(map); // {c=h}
